@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Nike Actions">
+  <title>S'identifier - Nike</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23111111' d='M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z'/></svg>">
+</head>
+<body>
+
+<!-- ===== NIKE TOPBAR ===== -->
+<div class="nike-topbar">
+  <div class="nike-topbar-inner">
+    <div class="nike-topbar-left">
+      <span class="nike-topbar-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+          <path d="M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z"/>
+        </svg>
+      </span>
+      <span class="nike-topbar-slogan">Espace Membre Nike • Actions &amp; Dividendes</span>
+    </div>
+    <div class="nike-topbar-links">
+      <a href="index.html#actions-pack">Trouver un magasin</a>
+      <span class="sep">|</span>
+      <a href="index.html#comment">Aide</a>
+      <span class="sep">|</span>
+      <a href="register.html">Rejoins-nous</a>
+      <span class="sep">|</span>
+      <a href="index.html">Accueil</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" style="border-bottom:1px solid var(--nike-gray-200);">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-brand" aria-label="Nike Accueil">
+      <svg class="nike-swoosh" viewBox="0 0 24 24" width="60" height="22" fill="currentColor">
+        <path d="M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z"/>
+      </svg>
+    </a>
+    <div></div>
+    <div class="nav-cta" style="display:flex;gap:0.65rem;">
+      <button type="button" class="btn-outline-ryo btn-install-app" style="padding:0.42rem 0.95rem;font-size:0.82rem;display:none;">
+        Installer l'App
+      </button>
+      <a href="register.html" class="btn-nike-pill-black" style="padding:0.42rem 1.15rem;font-size:0.82rem;">
+        Rejoins-nous
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== NIKE AUTH SPLIT SCREEN ===== -->
+<div class="nike-auth-screen">
+  <div class="nike-auth-container">
+    <!-- Visual Left Banner -->
+    <div class="nike-auth-visual">
+      <div class="nike-auth-visual-overlay"></div>
+      <div class="nike-auth-visual-content">
+        <svg viewBox="0 0 24 24" width="52" height="22" fill="#ffffff" style="margin-bottom:1.25rem;">
+          <path d="M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z"/>
+        </svg>
+        <div class="nike-auth-quote">JUST DO IT.</div>
+        <p class="nike-auth-quote-sub">
+          Connectez-vous à votre espace actionnaire Nike. Suivez la performance de votre portefeuille et encaissez vos dividendes quotidiens.
+        </p>
+      </div>
+    </div>
+
+    <!-- Form Right Wrap -->
+    <div class="nike-auth-form-wrap">
+      <div class="nike-auth-header">
+        <div class="d-flex align-center justify-between mb-2">
+          <svg viewBox="0 0 24 24" width="46" height="20" fill="#111111">
+            <path d="M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z"/>
+          </svg>
+          <span class="badge badge-info">Espace Membre</span>
+        </div>
+        <h1>S'IDENTIFIER</h1>
+        <p>Saisissez vos identifiants pour accéder à votre tableau de bord.</p>
+      </div>
+
+      <div id="alertContainer"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="email">Adresse Email</label>
+          <div class="form-control-icon">
+            <span class="icon"><i class="bi bi-envelope"></i></span>
+            <input type="email" id="email" class="form-control" placeholder="exemple@email.com" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Mot de passe</label>
+          <div class="form-control-icon">
+            <span class="icon"><i class="bi bi-lock"></i></span>
+            <input type="password" id="password" class="form-control" placeholder="Votre mot de passe" required autocomplete="current-password">
+          </div>
+        </div>
+
+        <button type="submit" id="loginBtn" class="btn-nike-pill-black w-100 mt-2" style="justify-content:center;padding:0.9rem;">
+          Se connecter
+        </button>
+      </form>
+
+      <div class="text-center mt-3" style="padding-top:1.2rem;border-top:1px solid var(--nike-gray-200);font-size:0.88rem;color:var(--nike-gray-500);">
+        Pas encore membre ? <a href="register.html" style="color:var(--nike-black);font-weight:700;text-decoration:underline;margin-left:0.3rem;">Rejoins-nous</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

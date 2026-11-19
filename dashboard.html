@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Nike Actions">
+  <title>Tableau de bord - Nike</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23111111' d='M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z'/></svg>">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo">
+        <svg class="nike-swoosh" viewBox="0 0 24 24" width="38" height="16" fill="currentColor">
+          <path d="M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z"/>
+        </svg>
+        <span>NIKE</span>
+      </a>
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Fermer le menu"><i class="bi bi-x-lg"></i></button>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarUserAvatar">N</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">Actionnaire Nike</div>
+        <div class="user-role">Investisseur Actif</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Menu Principal</div>
+      <a href="dashboard.html" class="sidebar-nav-item active">
+        <span class="nav-icon"><i class="bi bi-speedometer2"></i></span>
+        <span>Dashboard</span>
+      </a>
+      <a href="vip-plans.html" class="sidebar-nav-item">
+        <span class="nav-icon"><i class="bi bi-stack"></i></span>
+        <span>Actions &amp; Pack</span>
+      </a>
+      <a href="withdraw.html" class="sidebar-nav-item">
+        <span class="nav-icon"><i class="bi bi-cash-stack"></i></span>
+        <span>Retraits</span>
+      </a>
+      <a href="referral.html" class="sidebar-nav-item">
+        <span class="nav-icon"><i class="bi bi-people"></i></span>
+        <span>Parrainage</span>
+      </a>
+      <a href="#profileModal" onclick="document.getElementById('profileModal').classList.remove('hidden');return false;" class="sidebar-nav-item">
+        <span class="nav-icon"><i class="bi bi-person"></i></span>
+        <span>Profil</span>
+      </a>
+      <a href="#" class="sidebar-nav-item btn-install-app" style="display:none;">
+        <span class="nav-icon"><i class="bi bi-download"></i></span>
+        <span>Installer l'App</span>
+      </a>
+      <a href="#" class="sidebar-nav-item logout logout-trigger">
+        <span class="nav-icon"><i class="bi bi-box-arrow-left"></i></span>
+        <span>Déconnexion</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      © 2026 Nike Actions
+    </div>
+  </aside>
+
+  <!-- ===== MAIN AREA ===== -->
+  <div class="main-content">
+    <header class="main-topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Ouvrir le menu"><i class="bi bi-list"></i></button>
+        <div>
+          <div class="page-title">Tableau de bord</div>
+          <div class="page-breadcrumb">Espace de gestion de votre portefeuille d'actions Nike</div>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="topbar-balance">
+          <span class="balance-label">Solde :</span>
+          <span class="balance-value" id="topbarBalance">0 FCFA</span>
+        </div>
+        <a href="vip-plans.html" class="btn-nike-pill-black" style="padding:0.5rem 1.2rem;font-size:0.82rem;">
+          Acheter des actions
+        </a>
+      </div>
+    </header>
+
+    <main class="main-body">
+      <div id="alertContainer"></div>
+
+      <!-- ===== STATS CARDS ===== -->
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Solde Disponible</span>
+            <div class="stat-card-icon icon-gold"><i class="bi bi-wallet2"></i></div>
+          </div>
+          <div class="stat-card-value" id="statBalance">0 FCFA</div>
+          <div class="stat-card-change">Min 3 500 F · Lun–Ven 7h–21h</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Dividendes du Jour</span>
+            <div class="stat-card-icon icon-red"><i class="bi bi-graph-up-arrow"></i></div>
+          </div>
+          <div class="stat-card-value" id="statDailyRevenue">0 FCFA</div>
+          <div class="stat-card-change">15 % / jour garantis</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Actions Actives</span>
+            <div class="stat-card-icon icon-green"><i class="bi bi-stack"></i></div>
+          </div>
+          <div class="stat-card-value" id="statActivePlan">Aucune action</div>
+          <div class="stat-card-change">Contrat 150 jours</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Partenaires Réseau</span>
+            <div class="stat-card-icon icon-blue"><i class="bi bi-people"></i></div>
+          </div>
+          <div class="stat-card-value" id="statReferrals">0</div>
+          <div class="stat-card-change">Commissions 25% · 3% · 2%</div>
+        </div>
+      </div>
+
+      <!-- ===== BANNIÈRE PARRAINAGE ===== -->
+      <div class="card-ryo mb-3" style="background:var(--nike-white);border:1px solid var(--nike-gray-200);padding:1.4rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <div style="font-size:1rem;font-weight:700;color:var(--nike-black);">
+              Développez votre réseau et touchez jusqu'à 25 % de commissions
+            </div>
+            <div style="font-size:0.85rem;color:var(--nike-gray-500);margin-top:0.25rem;">
+              Votre code parrain : <strong id="dashRefCode" style="color:var(--nike-black);">---</strong>
+              <span id="dashAltRefWrap" class="hidden" style="margin-left:0.6rem;">| Code alternatif : <strong id="dashAltRefCode" style="color:var(--nike-black);">---</strong></span>
+            </div>
+          </div>
+          <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+            <button type="button" class="btn-outline-ryo" id="dashCopyCodeBtn" style="padding:0.45rem 1rem;font-size:0.8rem;">
+              <i class="bi bi-clipboard me-1"></i> Copier mon code
+            </button>
+            <a href="referral.html" class="btn-nike-pill-black" style="padding:0.45rem 1.1rem;font-size:0.8rem;">
+              Espace Parrainage
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== MES ACTIONS ACTIVES ===== -->
+      <div class="dashboard-section mb-3">
+        <div class="section-head">
+          <div class="section-head-title">
+            <span class="icon"><i class="bi bi-stack"></i></span>
+            <span>Mes Actions Actives</span>
+          </div>
+          <a href="vip-plans.html" class="btn-nike-pill-black" style="padding:0.45rem 1.1rem;font-size:0.8rem">
+            + Acheter des actions
+          </a>
+        </div>
+        <div class="section-body" id="activePlansContainer">
+          <div class="text-center" style="padding:2.5rem;color:var(--nike-gray-500)">Chargement de vos actions...</div>
+        </div>
+      </div>
+
+      <!-- ===== TRANSACTIONS RÉCENTES ===== -->
+      <div class="dashboard-section">
+        <div class="section-head">
+          <div class="section-head-title">
+            <span class="icon"><i class="bi bi-clock-history"></i></span>
+            <span>Historique des Transactions</span>
+          </div>
+          <a href="withdraw.html" class="btn-outline-ryo" style="padding:0.4rem 1rem;font-size:0.78rem">
+            Demander un retrait
+          </a>
+        </div>
+        <div class="section-body" style="padding:0;overflow-x:auto;">
+          <table class="table-dashboard">
+            <thead>
+              <tr>
+                <th>Opération</th>
+                <th>Type</th>
+                <th>Montant</th>
+                <th>Référence</th>
+              </tr>
+            </thead>
+            <tbody id="transactionsTableBody">
+              <tr>
+                <td colspan="4" class="text-center" style="padding:2rem;color:var(--nike-gray-500)">Chargement...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ===== MODAL PROFIL ===== -->
+<div class="modal-overlay hidden" id="profileModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 class="modal-title">Mon Profil Nike</h3>
+      <button class="modal-close" onclick="document.getElementById('profileModal').classList.add('hidden')" aria-label="Fermer"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div>
+      <div class="form-group">
+        <label class="form-label">Nom complet</label>
+        <div class="form-control" id="profileName">-</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <div class="form-control" id="profileEmail">-</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Téléphone</label>
+        <div class="form-control" id="profilePhone">-</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Code de parrainage</label>
+        <div class="form-control fw-bold" id="profileRefCode">-</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Nike Actions">
+  <meta name="description" content="Nike Actions & Investissement - Plateforme d'actions participatives avec rendements quotidiens de 15% garantis sur 150 jours.">
+  <title>Site officiel de Nike. Nike MA — Actions &amp; Investissement</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23111111' d='M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z'/></svg>">
+</head>
+<body>
+
+<!-- ===== NIKE TOP UTILITY BAR (Reference: nike.com/ma) ===== -->
+<div class="nike-topbar">
+  <div class="nike-topbar-inner">
+    <div class="nike-topbar-left">
+      <span class="nike-topbar-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+          <path d="M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z"/>
+        </svg>
+      </span>
+      <span class="nike-topbar-slogan">Nike Actions • Dividendes 15 % / jour sur 150 jours</span>
+    </div>
+    <div class="nike-topbar-links">
+      <a href="#actions-pack">Trouver un magasin</a>
+      <span class="sep">|</span>
+      <a href="#comment">Aide</a>
+      <span class="sep">|</span>
+      <a href="register.html">Rejoins-nous</a>
+      <span class="sep">|</span>
+      <a href="login.html">S'identifier</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN NAVBAR (Reference: nike.com/ma) ===== -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-brand" aria-label="Nike Accueil">
+      <svg class="nike-swoosh" viewBox="0 0 24 24" width="60" height="22" fill="currentColor">
+        <path d="M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z"/>
+      </svg>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#actions-pack" class="active">Trouver un magasin</a></li>
+      <li><a href="#avantages">À propos de nous</a></li>
+      <li><a href="#vip-plans">Actions &amp; Pack</a></li>
+      <li><a href="#comment">Comment ça marche</a></li>
+      <li><a href="vip-plans.html">Catalogue Élite</a></li>
+    </ul>
+
+    <div class="nav-cta" id="navCta">
+      <button type="button" class="btn-outline-ryo btn-install-app" style="padding:0.42rem 0.95rem;font-size:0.82rem;display:none;">
+        Installer l'App
+      </button>
+      <a href="login.html" class="btn-outline-ryo" style="padding:0.42rem 1.05rem;font-size:0.82rem;">
+        S'identifier
+      </a>
+      <a href="register.html" class="btn-nike-pill-black" style="padding:0.42rem 1.15rem;font-size:0.82rem;">
+        Rejoins-nous
+      </a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO BANNER (Direct Visual Match to nike.com/ma screenshot) ===== -->
+<div class="nike-hero-container" id="hero">
+  <div class="nike-hero-banner">
+    <div class="nike-hero-overlay"></div>
+    <div class="nike-hero-content">
+      <span class="nike-hero-eyebrow">Accès en avant-première</span>
+      <h1 class="nike-hero-title">
+        <span>NIKE AIR</span>
+        <span>VAPORMAX EVO</span>
+      </h1>
+      <p class="nike-hero-subtitle">
+        La nouvelle évolution de l'Air est là. Détenez vos actions de référence et encaissez automatiquement 15 % de dividende quotidien pendant 150 jours.
+      </p>
+      <div class="nike-hero-buttons">
+        <a href="#actions-pack" class="btn-nike-pill-white">
+          Trouver un magasin
+        </a>
+        <a href="register.html" class="btn-nike-pill-outline-light">
+          Rejoins-nous
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STATS PERFORMANCE STRIP ===== -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <span class="stat-number" data-target="500" data-suffix="+">0</span>
+        <div class="stat-label">Actionnaires actifs</div>
+      </div>
+      <div class="stat-item reveal">
+        <span class="stat-number" data-target="10000000" data-suffix=" FCFA">0</span>
+        <div class="stat-label">Dividendes distribués</div>
+      </div>
+      <div class="stat-item reveal">
+        <span class="stat-number" data-target="150" data-suffix=" Jours">0</span>
+        <div class="stat-label">Durée de contrat garantie</div>
+      </div>
+      <div class="stat-item reveal">
+        <span class="stat-number" data-target="3500" data-suffix=" FCFA">0</span>
+        <div class="stat-label">Retrait min · Lun–Ven 7h–21h</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ACTIONS & PACKS SECTION ===== -->
+<section class="nike-products-section" id="vip-plans">
+  <div class="container">
+
+    <!-- 1. REDESIGNED « ACTIONS & PACK » EDITORIAL MATRIX -->
+    <div id="actions-pack">
+      <div class="ap-editorial-head reveal">
+        <div>
+          <div class="ap-editorial-eyebrow">Index Officiel • 10 Paliers d'Actions</div>
+          <h2 class="ap-editorial-title">Actions &amp; Pack</h2>
+          <p class="section-desc" style="margin-top:0.35rem;">
+            Consultez le barème complet des packs d'actions, leurs dividendes journaliers fixes de 15 % et leur rendement cumulé sur 150 jours.
+          </p>
+        </div>
+
+        <div class="ap-filter-bar" role="tablist" aria-label="Filtrer les paliers d'actions">
+          <button type="button" class="ap-filter-btn active" data-tier="all">Tous (10)</button>
+          <button type="button" class="ap-filter-btn" data-tier="entry">Actions 1–4</button>
+          <button type="button" class="ap-filter-btn" data-tier="mid">Actions 5–7</button>
+          <button type="button" class="ap-filter-btn" data-tier="elite">Actions 8–10</button>
+        </div>
+      </div>
+
+      <div class="vip-table-container reveal">
+        <table class="table-vip" id="vipTable">
+          <thead>
+            <tr>
+              <th>Action &amp; Pack</th>
+              <th>Prix d'achat</th>
+              <th>Dividende / Jour</th>
+              <th>Rendement Total (150j)</th>
+              <th class="col-center">Durée</th>
+              <th class="col-center">Rentabilité</th>
+              <th class="col-right">Opération</th>
+            </tr>
+          </thead>
+          <tbody id="vipTableBody">
+            <!-- Rempli dynamiquement -->
+          </tbody>
+        </table>
+        <div class="ap-matrix-footer">
+          <div>
+            <strong>Versement quotidien automatique :</strong> Chaque pack crédite 15 % de sa valeur d'acquisition toutes les 24 heures pendant 150 jours.
+          </div>
+          <div>
+            Dépôts &amp; Retraits : <strong>Orange Money</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. NIKE PRODUCT SHOWCASE CARDS -->
+    <div class="ap-section-wrap">
+      <div class="nike-products-header reveal">
+        <div class="nike-products-title-group">
+          <span class="section-label">Collection Officielle</span>
+          <h2>Nos Actions en Vente</h2>
+          <p>Sélectionnez votre édition et activez votre portefeuille en quelques secondes.</p>
+        </div>
+        <div>
+          <a href="vip-plans.html" class="btn-outline-ryo">
+            Voir les 10 Packs <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="nike-grid-cards" id="nikeActionsCards">
+        <!-- Rempli dynamiquement -->
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== SECONDARY EDITORIAL BANNER ===== -->
+<section style="padding:2rem 0 4.5rem;">
+  <div class="container">
+    <div class="nike-editorial-banner reveal">
+      <div class="nike-editorial-copy">
+        <span class="section-label" style="color:#a1a1a6;margin-bottom:0.65rem;">Performance &amp; Fiabilité</span>
+        <h2 style="font-family:var(--font-display);font-size:clamp(2.3rem,4.2vw,3.4rem);line-height:0.95;margin-bottom:1.1rem;text-transform:uppercase;color:#ffffff;">
+          LE RETOUR DE LA PERFORMANCE.
+        </h2>
+        <p style="color:#cccccc;font-size:1rem;line-height:1.6;margin-bottom:2rem;max-width:480px;">
+          Retirez vos gains quotidiens à tout moment sur votre compte Orange Money. Suivi en temps réel depuis votre tableau de bord actionnaire.
+        </p>
+        <div>
+          <a href="register.html" class="btn-nike-pill-white">
+            Commencer à investir
+          </a>
+        </div>
+      </div>
+      <div class="nike-editorial-visual"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AVANTAGES ===== -->
+<section id="avantages" style="padding-top:1rem;">
+  <div class="container">
+    <div class="section-header-split reveal">
+      <div>
+        <span class="section-label">À propos de nous</span>
+        <h2 class="section-title">Nos Avantages</h2>
+      </div>
+      <p class="section-desc" style="margin:0;">
+        Une architecture pensée pour offrir lisibilité, régularité et rapidité d'exécution sur chaque opération.
+      </p>
+    </div>
+
+    <div class="advantages-grid">
+      <div class="advantage-card reveal">
+        <div class="advantage-icon"><i class="bi bi-graph-up-arrow"></i></div>
+        <div class="advantage-highlight">15% / JOUR</div>
+        <h3 class="advantage-title">Rendement Constant</h3>
+        <p class="advantage-desc">Percevez automatiquement 15 % de dividende chaque jour pendant 150 jours sur chaque action souscrite.</p>
+      </div>
+
+      <div class="advantage-card reveal">
+        <div class="advantage-icon"><i class="bi bi-people"></i></div>
+        <div class="advantage-highlight">25% · 3% · 2%</div>
+        <h3 class="advantage-title">Réseau 3 Niveaux</h3>
+        <p class="advantage-desc">Recommandez Nike Actions et touchez 25 % de commission au Niveau 1, 3 % au Niveau 2 et 2 % au Niveau 3.</p>
+      </div>
+
+      <div class="advantage-card reveal">
+        <div class="advantage-icon"><i class="bi bi-lightning-charge"></i></div>
+        <div class="advantage-highlight">LUN–VEN · 7H–21H</div>
+        <h3 class="advantage-title">Retraits Orange Money</h3>
+        <p class="advantage-desc">Retraits disponibles du lundi au vendredi de 07h00 à 21h00 dès 3 500 FCFA (frais 10%), une fois votre capital atteint en gains journaliers.</p>
+      </div>
+
+      <div class="advantage-card reveal">
+        <div class="advantage-icon"><i class="bi bi-shield-check"></i></div>
+        <div class="advantage-highlight">100% SÉCURISÉ</div>
+        <h3 class="advantage-title">Traçabilité Totale</h3>
+        <p class="advantage-desc">Transactions validées par référence SMS unique. Vos capitaux et votre historique sont protégés en continu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMMENT ÇA MARCHE ===== -->
+<section class="steps-section" id="comment">
+  <div class="container">
+    <div class="section-header-split reveal">
+      <div>
+        <span class="section-label">Processus Simplifié</span>
+        <h2 class="section-title">Comment ça marche ?</h2>
+      </div>
+      <p class="section-desc" style="margin:0;">
+        En 3 étapes directes, activez vos actions et percevez vos premiers dividendes quotidiens.
+      </p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-number">01</div>
+        <h3 class="step-title">Créer votre compte</h3>
+        <p class="step-desc">Inscrivez-vous en moins de 2 minutes et accédez immédiatement à votre espace investisseur Nike.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number">02</div>
+        <h3 class="step-title">Acheter vos Actions</h3>
+        <p class="step-desc">Sélectionnez votre pack d'actions. Effectuez le dépôt par Orange Money et confirmez votre référence.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number">03</div>
+        <h3 class="step-title">Recevoir vos Dividendes</h3>
+        <p class="step-desc">Percevez vos gains automatiquement chaque 24 heures et effectuez vos retraits en toute liberté.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA FINAL SECTION ===== -->
+<section style="background:var(--nike-offwhite);border-top:1px solid var(--nike-gray-200);padding:5rem 0;">
+  <div class="container" style="text-align:center;">
+    <div class="reveal">
+      <span class="section-label">Passez à l'action</span>
+      <h2 class="section-title" style="font-size:clamp(2.2rem,4.5vw,3.6rem);margin-bottom:0.85rem;">
+        JUST DO IT. DEVENEZ ACTIONNAIRE.
+      </h2>
+      <p class="section-desc" style="margin:0 auto 2rem;">
+        Prenez part à la performance dès 4 000 FCFA et suivez vos dividendes au quotidien.
+      </p>
+      <div style="display:flex;gap:0.85rem;justify-content:center;flex-wrap:wrap;">
+        <a href="register.html" class="btn-nike-pill-black" style="padding:0.85rem 2.2rem;font-size:0.95rem;">
+          Rejoins-nous
+        </a>
+        <a href="login.html" class="btn-outline-ryo" style="padding:0.85rem 2.2rem;font-size:0.95rem;">
+          S'identifier
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="d-flex align-center gap-2 mb-2">
+          <svg class="nike-swoosh" viewBox="0 0 24 24" width="54" height="20" fill="currentColor">
+            <path d="M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z"/>
+          </svg>
+        </div>
+        <p class="footer-desc">
+          Plateforme participative d'investissement et d'acquisition d'actions avec rendement quotidien de 15 % calculé sur 150 jours.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-heading">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="#hero">Accès en avant-première</a></li>
+          <li><a href="#actions-pack">Actions &amp; Pack</a></li>
+          <li><a href="#avantages">À propos de nous</a></li>
+          <li><a href="#comment">Comment ça marche</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-heading">Espace Membre</div>
+        <ul class="footer-links">
+          <li><a href="login.html">S'identifier</a></li>
+          <li><a href="register.html">Rejoins-nous</a></li>
+          <li><a href="dashboard.html">Tableau de bord</a></li>
+          <li><a href="vip-plans.html">Nos 10 Packs</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-heading">Paiements &amp; Support</div>
+        <ul class="footer-links">
+          <li><span>Orange Money</span></li>
+          <li><span>Dépôts &amp; Retraits Orange Money</span></li>
+          <li><span>Retraits Lun–Ven (7h–21h)</span></li>
+          <li><span>Plateforme Vérifiée</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 Nike Actions, Inc. Tous droits réservés.</div>
+      <div style="display:flex;gap:1.5rem;">
+        <a href="#hero">Conditions d'utilisation</a>
+        <a href="#hero">Politique de confidentialité</a>
+        <a href="#hero">Mentions légales</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const ACTION_PLANS = [
+  { level: 1,  price: 4000,   daily: 600,    total: 90000,    shares: 1,   shares_label: "PRIX D'1 ACTION",    model: "Nike Revolution 7 Essential", tier: "entry" },
+  { level: 2,  price: 7000,   daily: 1050,   total: 157500,   shares: 5,   shares_label: "PRIX DE 5 ACTIONS",   model: "Nike Air Force 1 '07",         tier: "entry" },
+  { level: 3,  price: 12000,  daily: 1800,   total: 270000,   shares: 10,  shares_label: "PRIX DE 10 ACTIONS",  model: "Air Jordan 1 Retro High",      tier: "entry" },
+  { level: 4,  price: 18000,  daily: 2700,   total: 405000,   shares: 15,  shares_label: "PRIX DE 15 ACTIONS",  model: "Nike Dunk Low Retro",          tier: "entry" },
+  { level: 5,  price: 35000,  daily: 5250,   total: 787500,   shares: 30,  shares_label: "PRIX DE 30 ACTIONS",  model: "Nike Air Max 97 Metallic",     tier: "mid",   popular: true },
+  { level: 6,  price: 50000,  daily: 7500,   total: 1125000,  shares: 50,  shares_label: "PRIX DE 50 ACTIONS",  model: "Nike ZoomX Vaporfly",          tier: "mid" },
+  { level: 7,  price: 70000,  daily: 10500,  total: 1575000,  shares: 75,  shares_label: "PRIX DE 75 ACTIONS",  model: "Nike Air Max Plus TN",         tier: "mid" },
+  { level: 8,  price: 150000, daily: 22500,  total: 3375000,  shares: 150, shares_label: "PRIX DE 150 ACTIONS", model: "Air Jordan 4 Retro Élite",     tier: "elite", popular: true },
+  { level: 9,  price: 400000, daily: 60000,  total: 9000000,  shares: 400, shares_label: "PRIX DE 400 ACTIONS", model: "Nike Alphafly 3 Marathon",     tier: "elite" },
+  { level: 10, price: 700000, daily: 105000, total: 15750000, shares: 700, shares_label: "PRIX DE 700 ACTIONS", model: "Nike Edition Limitée Élite",   tier: "elite" }
+];
+
+function formatNumber(n) {
+  return Number(n).toLocaleString('fr-FR');
+}
+
+function formatCFA(n) {
+  return formatNumber(n) + ' FCFA';
+}
+
+// Render Redesigned « Actions & Pack » Table
+const tbody = document.getElementById('vipTableBody');
+
+function renderActionsTable(filterTier = 'all') {
+  if (!tbody) return;
+  const filtered = filterTier === 'all'
+    ? ACTION_PLANS
+    : ACTION_PLANS.filter(p => p.tier === filterTier);
+
+  tbody.innerHTML = filtered.map(plan => {
+    const roi = Math.round((plan.total / plan.price - 1) * 100);
+    const featured = Boolean(plan.popular);
+    const indexStr = String(plan.level).padStart(2, '0');
+
+    return `
+      <tr class="${featured ? 'ap-row-featured' : ''}" data-tier="${plan.tier}">
+        <td>
+          <div class="ap-pack-cell">
+            <span class="ap-pack-index">${indexStr}</span>
+            <div class="ap-pack-thumb">
+              <img src="images/action-${plan.level}.jpg" alt="Action ${plan.level}" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <div class="ap-pack-info">
+              <div class="ap-pack-title-row">
+                <span class="ap-action-name">ACTION ${plan.level}</span>
+                ${featured ? '<span class="ap-popular-badge">POPULAIRE</span>' : ''}
+              </div>
+              <span class="ap-shares-label">${plan.shares_label}</span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="ap-price-val">${formatNumber(plan.price)}</span><span class="ap-currency">FCFA</span>
+        </td>
+        <td>
+          <div class="ap-daily-wrap">
+            <span class="ap-daily-val">${formatNumber(plan.daily)}</span><span class="ap-currency">FCFA</span>
+          </div>
+        </td>
+        <td>
+          <div class="ap-total-wrap">
+            <span class="ap-total-dot" aria-hidden="true"></span>
+            <span class="ap-total-val">${formatNumber(plan.total)}</span><span class="ap-currency">FCFA</span>
+          </div>
+        </td>
+        <td class="col-center">
+          <span class="ap-duration-chip">150 jours</span>
+        </td>
+        <td class="col-center">
+          <span class="ap-roi-badge">+${roi}%</span>
+        </td>
+        <td class="col-right">
+          <a href="register.html" class="ap-action-btn">
+            <span>ACHETER</span>
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+renderActionsTable('all');
+
+// Filter buttons interaction
+document.querySelectorAll('.ap-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.ap-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderActionsTable(btn.getAttribute('data-tier') || 'all');
+  });
+});
+
+// Render Nike Product Cards
+const cardsContainer = document.getElementById('nikeActionsCards');
+if (cardsContainer) {
+  cardsContainer.innerHTML = ACTION_PLANS.map(plan => {
+    const isFeatured = Boolean(plan.popular);
+    return `
+      <div class="nike-product-card reveal">
+        <div class="nike-product-thumb">
+          ${isFeatured ? '<span class="nike-card-badge nike-card-badge-red">Populaire</span>' : `<span class="nike-card-badge">Action ${plan.level}</span>`}
+          <img src="images/action-${plan.level}.jpg" alt="Action ${plan.level} - ${plan.model}" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="nike-card-body">
+          <div class="nike-card-status">${plan.shares_label}</div>
+          <div class="nike-card-title">Action ${plan.level} — ${plan.model}</div>
+          <div class="nike-card-subtitle">Contrat 150 jours • +2150%</div>
+
+          <div class="nike-card-metrics">
+            <div>
+              <div class="nike-metric-label">Dividende / jour</div>
+              <div class="nike-metric-val">${formatCFA(plan.daily)}</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="nike-metric-label">Total (150j)</div>
+              <div class="nike-metric-val" style="color:var(--nike-green);">${formatCFA(plan.total)}</div>
+            </div>
+          </div>
+
+          <div class="nike-card-footer">
+            <div class="nike-card-price">${formatCFA(plan.price)}</div>
+            <a href="register.html" class="nike-card-btn">Acheter</a>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// Navbar scroll
+window.addEventListener('scroll', () => {
+  const navbar = document.getElementById('navbar');
+  if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Hamburger
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+const navCta = document.getElementById('navCta');
+
+if (hamburger && navLinks) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('open');
+    if (navCta) navCta.classList.toggle('open');
+  });
+
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('open');
+      if (navCta) navCta.classList.remove('open');
+    });
+  });
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Scroll Reveal
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Counter Animation
+function animateCounter(el) {
+  const target = parseInt(el.getAttribute('data-target'));
+  const suffix = el.getAttribute('data-suffix') || '';
+  const duration = 1600;
+  const step = target / (duration / 16);
+  let current = 0;
+
+  const timer = setInterval(() => {
+    current = Math.min(current + step, target);
+    if (target >= 1000000) {
+      el.textContent = (current / 1000000).toFixed(1) + 'M' + suffix;
+    } else if (target >= 1000) {
+      el.textContent = Math.floor(current).toLocaleString('fr-FR') + suffix;
+    } else {
+      el.textContent = Math.floor(current) + suffix;
+    }
+    if (current >= target) clearInterval(timer);
+  }, 16);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounter(entry.target);
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.4 });
+
+document.querySelectorAll('.stat-number[data-target]').forEach(el => counterObserver.observe(el));
+</script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

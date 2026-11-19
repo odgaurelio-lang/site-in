@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Nike Admin">
+  <title>Nike Admin — Gestion Utilisateurs</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/admin.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="admin-wrapper">
+
+  <!-- =================== SIDEBAR =================== -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+      <a class="sidebar-brand" href="index.html">
+        <svg class="nike-swoosh me-2" viewBox="0 0 24 24" width="28" height="15" fill="white">
+          <path d="M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z"/>
+        </svg>
+        <div class="brand-text">
+          <span class="brand-name">NIKE</span>
+          <span class="brand-subtitle">Administration</span>
+        </div>
+      </a>
+      <div class="admin-badge-pill">
+        <i class="bi bi-person-fill-gear"></i>
+        <span>Super Admin</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Principal</div>
+
+      <a href="index.html" class="nav-link">
+        <i class="bi bi-speedometer2"></i>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="users.html" class="nav-link active">
+        <i class="bi bi-people-fill"></i>
+        <span>Utilisateurs</span>
+      </a>
+
+      <div class="nav-section-title" style="margin-top:8px;">Transactions</div>
+
+      <a href="index.html#pendingSubsSection" class="nav-link">
+        <i class="bi bi-credit-card-fill"></i>
+        <span>Souscriptions</span>
+      </a>
+
+      <a href="index.html#pendingWithdrawalsSection" class="nav-link">
+        <i class="bi bi-cash-stack"></i>
+        <span>Retraits</span>
+        <span class="nav-badge" id="navWithdrawalBadge" style="display:none;">0</span>
+      </a>
+
+      <div class="nav-section-title" style="margin-top:8px;">Exports PHP / Excel</div>
+
+      <a href="/php/export.php?type=users&key=ryo_admin_secret_key_2024" target="_blank" class="nav-link">
+        <i class="bi bi-file-earmark-spreadsheet"></i>
+        <span>Export Utilisateurs (CSV)</span>
+      </a>
+
+      <div class="nav-section-title" style="margin-top:8px;">Système</div>
+
+      <a href="#" class="nav-link btn-install-app" style="color:var(--gold);">
+        <i class="bi bi-download"></i>
+        <span>Installer l'App PWA</span>
+      </a>
+
+      <a href="#" class="nav-link nav-link-logout" onclick="logout(); return false;">
+        <i class="bi bi-box-arrow-left"></i>
+        <span>Déconnexion</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="admin-info">
+        <div class="admin-avatar">
+          <i class="bi bi-person-circle"></i>
+        </div>
+        <div>
+          <div style="font-size:13px; font-weight:600; color:var(--text-primary);">Administrateur</div>
+          <div class="admin-email" id="adminEmail">admin@ryo.com</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =================== MAIN =================== -->
+  <main class="admin-main">
+
+    <!-- TOPBAR -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+          <i class="bi bi-list"></i>
+        </button>
+        <div>
+          <div class="page-title">Gestion des Utilisateurs</div>
+          <div class="page-subtitle">Liste et administration de tous les membres</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span class="last-refresh" id="lastRefreshTime">—</span>
+        <button class="refresh-btn" id="refreshBtn">
+          <i class="bi bi-arrow-clockwise"></i>
+          <span>Actualiser</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="admin-content">
+
+      <!-- USERS TABLE PANEL -->
+      <div class="admin-section">
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+          <div class="search-input-wrapper">
+            <i class="bi bi-search"></i>
+            <input type="text" class="search-input" id="searchInput"
+              placeholder="Rechercher par nom ou email..." autocomplete="off">
+          </div>
+
+          <select class="filter-select" id="filterStatus">
+            <option value="">Tous les statuts</option>
+            <option value="active">Actifs</option>
+            <option value="inactive">Désactivés</option>
+            <option value="vip">Avec Action active</option>
+          </select>
+
+          <div style="font-size:13px; color:var(--text-muted);">
+            <span id="totalUsersInfo">0 utilisateurs</span>
+          </div>
+        </div>
+
+        <!-- Section header -->
+        <div class="section-header">
+          <div class="section-title">
+            <i class="bi bi-people-fill"></i>
+            Utilisateurs
+            <span class="section-count" id="usersCount">0</span>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div id="usersContainer">
+          <div class="loading-spinner">
+            <div class="spinner-ring"></div>
+            <p>Chargement des utilisateurs...</p>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-wrapper" id="paginationWrapper" style="display:none;">
+          <div class="pagination-info" id="paginationInfo">—</div>
+          <div class="pagination-controls" id="paginationControls"></div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- =================== USER DETAIL MODAL =================== -->
+<div class="modal fade" id="userDetailModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="user-avatar-sm" id="modalUserAvatar" style="width:44px;height:44px;font-size:18px;"></div>
+          <div>
+            <h5 class="modal-title" id="modalUserName">Utilisateur</h5>
+            <div style="font-size:12px;color:var(--text-muted);" id="modalUserId">ID: —</div>
+          </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+
+        <!-- Tabs -->
+        <div class="detail-tabs">
+          <button class="detail-tab active" onclick="switchTab('tabInfo', this)">
+            <i class="bi bi-person"></i> Infos
+          </button>
+          <button class="detail-tab" onclick="switchTab('tabSubs', this)">
+            <i class="bi bi-credit-card"></i> Souscriptions
+          </button>
+          <button class="detail-tab" onclick="switchTab('tabTransactions', this)">
+            <i class="bi bi-clock-history"></i> Transactions
+          </button>
+          <button class="detail-tab" onclick="switchTab('tabReferrals', this)">
+            <i class="bi bi-people"></i> Filleuls
+          </button>
+        </div>
+
+        <!-- Tab: Infos -->
+        <div class="tab-panel active" id="tabInfo">
+          <div class="detail-row"><div class="detail-label">Email</div><div class="detail-value" id="dEmail">—</div></div>
+          <div class="detail-row"><div class="detail-label">Téléphone</div><div class="detail-value" id="dPhone">—</div></div>
+          <div class="detail-row"><div class="detail-label">Solde</div><div class="detail-value" id="dBalance" style="color:var(--gold);font-weight:700;">—</div></div>
+          <div class="detail-row"><div class="detail-label">Total Gagné</div><div class="detail-value" id="dTotalEarned">—</div></div>
+          <div class="detail-row"><div class="detail-label">Code Parrainage</div><div class="detail-value" id="dReferralCode">—</div></div>
+          <div class="detail-row"><div class="detail-label">Parrainé par</div><div class="detail-value" id="dReferredBy">—</div></div>
+          <div class="detail-row"><div class="detail-label">Statut</div><div class="detail-value" id="dStatus">—</div></div>
+          <div class="detail-row"><div class="detail-label">Admin</div><div class="detail-value" id="dIsAdmin">—</div></div>
+          <div class="detail-row"><div class="detail-label">Inscription</div><div class="detail-value" id="dCreatedAt">—</div></div>
+        </div>
+
+        <!-- Tab: Souscriptions -->
+        <div class="tab-panel" id="tabSubs">
+          <div id="modalSubsContent">
+            <div class="loading-spinner"><div class="spinner-ring"></div><p>Chargement...</p></div>
+          </div>
+        </div>
+
+        <!-- Tab: Transactions -->
+        <div class="tab-panel" id="tabTransactions">
+          <div id="modalTransContent">
+            <div class="loading-spinner"><div class="spinner-ring"></div><p>Chargement...</p></div>
+          </div>
+        </div>
+
+        <!-- Tab: Filleuls -->
+        <div class="tab-panel" id="tabReferrals">
+          <div id="modalRefContent">
+            <div class="loading-spinner"><div class="spinner-ring"></div><p>Chargement...</p></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <div id="modalToggleStatus"></div>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =================== SCRIPTS =================== -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/admin.js"></script>
+<script>
+  // =================== STATE ===================
+  let allUsers = [];
+  let filteredUsers = [];
+  let currentPage = 1;
+  const PAGE_SIZE = 20;
+  let currentUserId = null;
+
+  // =================== INIT ===================
+  document.addEventListener('DOMContentLoaded', async () => {
+    if (!checkAdminAuth()) return;
+    await loadUsers();
+    setupRefreshButton(loadUsers);
+    updateLastRefreshTime();
+
+    // Search + filter
+    document.getElementById('searchInput').addEventListener('input', debounce(applyFilters, 300));
+    document.getElementById('filterStatus').addEventListener('change', applyFilters);
+  });
+
+  function debounce(fn, ms) {
+    let t;
+    return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+  }
+
+  // =================== LOAD USERS ===================
+  async function loadUsers() {
+    const container = document.getElementById('usersContainer');
+    container.innerHTML = `<div class="loading-spinner"><div class="spinner-ring"></div><p>Chargement...</p></div>`;
+
+    try {
+      const data = await apiCall('/admin/users?limit=500');
+      allUsers = data.users || data || [];
+      applyFilters();
+      updateLastRefreshTime();
+    } catch (err) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <i class="bi bi-exclamation-circle"></i>
+          <p style="color:var(--danger);">Erreur: ${escHtml(err.message)}</p>
+        </div>
+      `;
+    }
+  }
+
+  // =================== FILTERS ===================
+  function applyFilters() {
+    const search = document.getElementById('searchInput').value.trim().toLowerCase();
+    const status = document.getElementById('filterStatus').value;
+
+    filteredUsers = allUsers.filter(u => {
+      const matchSearch = !search ||
+        (u.username || '').toLowerCase().includes(search) ||
+        (u.email || '').toLowerCase().includes(search) ||
+        (u.phone || '').includes(search);
+
+      let matchStatus = true;
+      if (status === 'active') matchStatus = u.is_active == 1;
+      else if (status === 'inactive') matchStatus = u.is_active == 0;
+      else if (status === 'vip') matchStatus = u.has_active_vip || u.vip_status === 'active';
+
+      return matchSearch && matchStatus;
+    });
+
+    currentPage = 1;
+    renderUsers();
+  }
+
+  // =================== RENDER ===================
+  function renderUsers() {
+    const container = document.getElementById('usersContainer');
+    const total = filteredUsers.length;
+
+    document.getElementById('usersCount').textContent = total;
+    document.getElementById('totalUsersInfo').textContent = `${total} utilisateur${total > 1 ? 's' : ''}`;
+
+    if (!total) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <i class="bi bi-person-x"></i>
+          <p>Aucun utilisateur trouvé</p>
+        </div>
+      `;
+      document.getElementById('paginationWrapper').style.display = 'none';
+      return;
+    }
+
+    const totalPages = Math.ceil(total / PAGE_SIZE);
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const end = Math.min(start + PAGE_SIZE, total);
+    const page = filteredUsers.slice(start, end);
+
+    const rows = page.map(u => {
+      const isActive = u.is_active == 1;
+      const vipBadge = u.vip_level
+        ? vipBadgeHtml(u.vip_level)
+        : `<span style="color:var(--text-muted);font-size:12px;">Aucun</span>`;
+
+      return `
+        <tr style="cursor:pointer;" onclick="openUserDetail(${u.id})">
+          <td style="font-family:monospace;font-size:12px;color:var(--text-muted);">#${u.id}</td>
+          <td>
+            <div class="user-cell">
+              <div class="user-avatar-sm">${getInitials(u.username || u.email)}</div>
+              <div>
+                <div class="user-name">${escHtml(u.username || 'N/A')}</div>
+              </div>
+            </div>
+          </td>
+          <td style="font-size:13px;color:var(--text-secondary);">${escHtml(u.email || '—')}</td>
+          <td style="font-size:13px;color:var(--text-secondary);">${escHtml(u.phone || '—')}</td>
+          <td class="amount-cell">${formatCFA(u.balance)}</td>
+          <td>${vipBadge}</td>
+          <td>${isActive
+            ? '<span class="status-badge badge-active">Actif</span>'
+            : '<span class="status-badge badge-rejected">Désactivé</span>'
+          }</td>
+          <td class="date-cell">${formatDateShort(u.created_at)}</td>
+          <td onclick="event.stopPropagation();">
+            <button class="btn-action ${isActive ? 'btn-toggle-active' : 'btn-toggle-inactive'}"
+              onclick="toggleUserStatus(${u.id}, ${isActive ? 0 : 1}, '${escHtml(u.username || u.email)}')">
+              <i class="bi bi-${isActive ? 'slash-circle' : 'check-circle'}"></i>
+              ${isActive ? 'Désactiver' : 'Activer'}
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    container.innerHTML = `
+      <div class="table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Email</th>
+              <th>Téléphone</th>
+              <th>Solde</th>
+              <th>Statut Action</th>
+              <th>Statut</th>
+              <th>Inscription</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    `;
+
+    // Pagination
+    renderPagination(total, totalPages, start, end);
+  }
+
+  function renderPagination(total, totalPages, start, end) {
+    const wrapper = document.getElementById('paginationWrapper');
+    wrapper.style.display = 'flex';
+
+    document.getElementById('paginationInfo').textContent =
+      `${start + 1}–${end} sur ${total} utilisateurs`;
+
+    const controls = document.getElementById('paginationControls');
+    let html = `
+      <button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    `;
+
+    // Page numbers (max 5 visible)
+    const half = 2;
+    let startP = Math.max(1, currentPage - half);
+    let endP = Math.min(totalPages, currentPage + half);
+    if (endP - startP < 4) {
+      startP = Math.max(1, endP - 4);
+      endP = Math.min(totalPages, startP + 4);
+    }
+
+    if (startP > 1) html += `<button class="page-btn" onclick="goToPage(1)">1</button>`;
+    if (startP > 2) html += `<span style="color:var(--text-muted);padding:0 4px;">…</span>`;
+
+    for (let i = startP; i <= endP; i++) {
+      html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+    }
+
+    if (endP < totalPages - 1) html += `<span style="color:var(--text-muted);padding:0 4px;">…</span>`;
+    if (endP < totalPages) html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+
+    html += `
+      <button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    `;
+    controls.innerHTML = html;
+  }
+
+  function goToPage(page) {
+    const totalPages = Math.ceil(filteredUsers.length / PAGE_SIZE);
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    renderUsers();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // =================== USER DETAIL MODAL ===================
+  async function openUserDetail(userId) {
+    currentUserId = userId;
+    const user = allUsers.find(u => u.id === userId);
+    if (!user) return;
+
+    // Fill basic info
+    document.getElementById('modalUserAvatar').textContent = getInitials(user.username || user.email);
+    document.getElementById('modalUserName').textContent = user.username || 'N/A';
+    document.getElementById('modalUserId').textContent = `ID: ${user.id} · Membre depuis ${formatDateShort(user.created_at)}`;
+
+    document.getElementById('dEmail').textContent = user.email || '—';
+    document.getElementById('dPhone').textContent = user.phone || '—';
+    document.getElementById('dBalance').textContent = formatCFA(user.balance);
+    document.getElementById('dTotalEarned').textContent = formatCFA(user.total_earned);
+    document.getElementById('dReferralCode').innerHTML = `<span class="ref-cell">${escHtml(user.referral_code || '—')}</span>`;
+    document.getElementById('dReferredBy').textContent = user.referred_by || 'Aucun';
+    document.getElementById('dStatus').innerHTML = user.is_active == 1
+      ? '<span class="status-badge badge-active">Actif</span>'
+      : '<span class="status-badge badge-rejected">Désactivé</span>';
+    document.getElementById('dIsAdmin').innerHTML = user.is_admin == 1
+      ? '<span class="status-badge badge-active">Oui (Admin)</span>'
+      : '<span style="color:var(--text-muted)">Non</span>';
+    document.getElementById('dCreatedAt').textContent = formatDate(user.created_at);
+
+    // Reset tabs to info
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tabInfo').classList.add('active');
+    document.querySelectorAll('.detail-tab')[0].classList.add('active');
+
+    // Toggle button in footer
+    const isActive = user.is_active == 1;
+    document.getElementById('modalToggleStatus').innerHTML = `
+      <button class="btn-action ${isActive ? 'btn-toggle-active' : 'btn-toggle-inactive'}"
+        onclick="toggleUserStatus(${user.id}, ${isActive ? 0 : 1}, '${escHtml(user.username || user.email)}')">
+        <i class="bi bi-${isActive ? 'slash-circle' : 'check-circle'}"></i>
+        ${isActive ? 'Désactiver ce compte' : 'Activer ce compte'}
+      </button>
+    `;
+
+    // Load detail tabs lazily
+    loadUserSubsTab(userId);
+    loadUserTransTab(userId);
+    loadUserRefTab(userId);
+
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('userDetailModal'));
+    modal.show();
+  }
+
+  async function loadUserSubsTab(userId) {
+    const container = document.getElementById('modalSubsContent');
+    container.innerHTML = `<div class="loading-spinner"><div class="spinner-ring"></div><p>Chargement...</p></div>`;
+    try {
+      const data = await apiCall(`/admin/users/${userId}/subscriptions`);
+      const subs = data.subscriptions || data || [];
+      if (!subs.length) {
+        container.innerHTML = `<div class="empty-state" style="padding:30px;"><i class="bi bi-credit-card"></i><p>Aucune souscription</p></div>`;
+        return;
+      }
+      const rows = subs.map(s => `
+        <tr>
+          <td>${vipBadgeHtml(s.vip_level)}</td>
+          <td class="amount-cell">${formatCFA(s.price)}</td>
+          <td style="color:var(--success);font-size:13px;">${formatCFA(s.daily_revenue)}/j</td>
+          <td>${statusBadgeHtml(s.status)}</td>
+          <td style="font-size:12px;color:var(--text-muted);">${formatDateShort(s.start_date)} → ${formatDateShort(s.end_date)}</td>
+        </tr>
+      `).join('');
+      container.innerHTML = `
+        <div class="table-wrapper">
+          <table class="mini-table">
+            <thead><tr><th>Plan</th><th>Prix</th><th>Revenu/j</th><th>Statut</th><th>Période</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+    } catch (err) {
+      container.innerHTML = `<div class="empty-state" style="padding:30px; color:var(--danger);">${escHtml(err.message)}</div>`;
+    }
+  }
+
+  async function loadUserTransTab(userId) {
+    const container = document.getElementById('modalTransContent');
+    container.innerHTML = `<div class="loading-spinner"><div class="spinner-ring"></div><p>Chargement...</p></div>`;
+    try {
+      const data = await apiCall(`/admin/users/${userId}/transactions?limit=20`);
+      const txs = data.transactions || data || [];
+      if (!txs.length) {
+        container.innerHTML = `<div class="empty-state" style="padding:30px;"><i class="bi bi-clock-history"></i><p>Aucune transaction</p></div>`;
+        return;
+      }
+      const typeColors = {
+        deposit: 'var(--success)', withdrawal: 'var(--danger)',
+        earning: 'var(--gold)', bonus: 'var(--info)', commission: 'var(--warning)'
+      };
+      const rows = txs.map(t => `
+        <tr>
+          <td style="font-size:12px;color:var(--text-muted);">${formatDate(t.created_at)}</td>
+          <td style="font-size:12px;text-transform:capitalize;color:${typeColors[t.type] || 'var(--text-secondary)'};">${t.type}</td>
+          <td style="font-weight:700;color:${t.amount > 0 ? 'var(--success)' : 'var(--danger)'};">
+            ${t.amount > 0 ? '+' : ''}${formatCFA(t.amount)}
+          </td>
+          <td style="font-size:12px;color:var(--text-muted);">${escHtml(t.description || '—')}</td>
+        </tr>
+      `).join('');
+      container.innerHTML = `
+        <div class="table-wrapper">
+          <table class="mini-table">
+            <thead><tr><th>Date</th><th>Type</th><th>Montant</th><th>Description</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+    } catch (err) {
+      container.innerHTML = `<div class="empty-state" style="padding:30px; color:var(--danger);">${escHtml(err.message)}</div>`;
+    }
+  }
+
+  async function loadUserRefTab(userId) {
+    const container = document.getElementById('modalRefContent');
+    container.innerHTML = `<div class="loading-spinner"><div class="spinner-ring"></div><p>Chargement...</p></div>`;
+    try {
+      const data = await apiCall(`/admin/users/${userId}/referrals`);
+      const refs = data.referrals || data || [];
+      if (!refs.length) {
+        container.innerHTML = `<div class="empty-state" style="padding:30px;"><i class="bi bi-people"></i><p>Aucun filleul</p></div>`;
+        return;
+      }
+      const rows = refs.map(r => `
+        <tr>
+          <td>
+            <div class="user-cell">
+              <div class="user-avatar-sm" style="width:28px;height:28px;font-size:11px;">${getInitials(r.username || r.email)}</div>
+              <div class="user-name">${escHtml(r.username || r.email)}</div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--text-muted);">${escHtml(r.email || '—')}</td>
+          <td><span class="status-badge ${r.has_subscription ? 'badge-active' : 'badge-expired'}">${r.has_subscription ? 'Souscrit' : 'Inactif'}</span></td>
+          <td class="date-cell">${formatDateShort(r.created_at)}</td>
+        </tr>
+      `).join('');
+      container.innerHTML = `
+        <div class="table-wrapper">
+          <table class="mini-table">
+            <thead><tr><th>Filleul</th><th>Email</th><th>Statut</th><th>Date</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+    } catch (err) {
+      container.innerHTML = `<div class="empty-state" style="padding:30px; color:var(--danger);">${escHtml(err.message)}</div>`;
+    }
+  }
+
+  // =================== TAB SWITCH ===================
+  function switchTab(tabId, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(tabId)?.classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // =================== TOGGLE USER STATUS ===================
+  async function toggleUserStatus(userId, newStatus, name) {
+    const action = newStatus === 1 ? 'activer' : 'désactiver';
+    confirmAction(
+      `Êtes-vous sûr de vouloir <strong>${action}</strong> le compte de <strong>${escHtml(name)}</strong> ?`,
+      async () => {
+        try {
+          await apiCall(`/admin/users/${userId}/status`, 'PUT', { is_active: newStatus });
+          showToast('Succès', `Compte ${newStatus === 1 ? 'activé' : 'désactivé'} avec succès.`, 'success');
+
+          // Update local state
+          const user = allUsers.find(u => u.id === userId);
+          if (user) user.is_active = newStatus;
+
+          // Close modal if open
+          const modal = bootstrap.Modal.getInstance(document.getElementById('userDetailModal'));
+          if (modal) modal.hide();
+
+          renderUsers();
+        } catch (err) {
+          showToast('Erreur', `Impossible de ${action} le compte: ` + err.message, 'error');
+        }
+      }
+    );
+  }
+</script>
+<script src="/js/pwa.js"></script>
+</body>
+</html>

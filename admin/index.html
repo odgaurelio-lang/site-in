@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Nike Admin">
+  <title>Nike Admin — Dashboard</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/admin.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- =================== ADMIN WRAPPER =================== -->
+<div class="admin-wrapper">
+
+  <!-- =================== SIDEBAR =================== -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+      <a class="sidebar-brand" href="index.html">
+        <svg class="nike-swoosh me-2" viewBox="0 0 24 24" width="28" height="15" fill="white">
+          <path d="M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z"/>
+        </svg>
+        <div class="brand-text">
+          <span class="brand-name">NIKE</span>
+          <span class="brand-subtitle">Administration</span>
+        </div>
+      </a>
+      <div class="admin-badge-pill">
+        <i class="bi bi-person-fill-gear"></i>
+        <span>Super Admin</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Principal</div>
+
+      <a href="index.html" class="nav-link active">
+        <i class="bi bi-speedometer2"></i>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="users.html" class="nav-link">
+        <i class="bi bi-people-fill"></i>
+        <span>Utilisateurs</span>
+      </a>
+
+      <div class="nav-section-title" style="margin-top:8px;">Transactions</div>
+
+      <a href="#pendingSubsSection" class="nav-link" onclick="document.getElementById('pendingSubsSection').scrollIntoView({behavior:'smooth'}); return false;">
+        <i class="bi bi-credit-card-fill"></i>
+        <span>Souscriptions</span>
+        <span class="nav-badge" id="navSubsBadge" style="display:none;">0</span>
+      </a>
+
+      <a href="#pendingWithdrawalsSection" class="nav-link" onclick="document.getElementById('pendingWithdrawalsSection').scrollIntoView({behavior:'smooth'}); return false;" style="position:relative;">
+        <i class="bi bi-cash-stack"></i>
+        <span>Retraits</span>
+        <span class="nav-badge" id="navWithdrawalBadge" style="display:none;">0</span>
+      </a>
+
+      <div class="nav-section-title" style="margin-top:8px;">Système</div>
+
+      <a href="#" class="nav-link" onclick="triggerDailyEarnings(); return false;">
+        <i class="bi bi-calendar-check-fill"></i>
+        <span>Revenus Journaliers</span>
+      </a>
+
+      <div class="nav-section-title" style="margin-top:8px;">Exports PHP / Excel</div>
+
+      <a href="/php/export.php?type=users&key=ryo_admin_secret_key_2024" target="_blank" class="nav-link">
+        <i class="bi bi-file-earmark-spreadsheet"></i>
+        <span>Export Utilisateurs (CSV)</span>
+      </a>
+
+      <a href="/php/export.php?type=subscriptions&key=ryo_admin_secret_key_2024" target="_blank" class="nav-link">
+        <i class="bi bi-file-earmark-spreadsheet"></i>
+        <span>Export VIP (CSV)</span>
+      </a>
+
+      <a href="/php/export.php?type=withdrawals&key=ryo_admin_secret_key_2024" target="_blank" class="nav-link">
+        <i class="bi bi-file-earmark-spreadsheet"></i>
+        <span>Export Retraits (CSV)</span>
+      </a>
+
+      <a href="/php/export.php?type=commissions&key=ryo_admin_secret_key_2024" target="_blank" class="nav-link">
+        <i class="bi bi-file-earmark-spreadsheet"></i>
+        <span>Export Commissions (CSV)</span>
+      </a>
+
+      <a href="#" class="nav-link btn-install-app" style="color:var(--gold);">
+        <i class="bi bi-download"></i>
+        <span>Installer l'App PWA</span>
+      </a>
+
+      <a href="#" class="nav-link nav-link-logout" onclick="logout(); return false;">
+        <i class="bi bi-box-arrow-left"></i>
+        <span>Déconnexion</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="admin-info">
+        <div class="admin-avatar">
+          <i class="bi bi-person-circle"></i>
+        </div>
+        <div>
+          <div style="font-size:13px; font-weight:600; color:var(--text-primary);">Administrateur</div>
+          <div class="admin-email" id="adminEmail">admin@ryo.com</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =================== MAIN =================== -->
+  <main class="admin-main">
+
+    <!-- TOPBAR -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+          <i class="bi bi-list"></i>
+        </button>
+        <div>
+          <div class="page-title">Dashboard Admin</div>
+          <div class="page-subtitle">Vue d'ensemble de la plateforme Nike Actions</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span class="last-refresh" id="lastRefreshTime">—</span>
+        <span class="last-refresh" style="color:var(--primary-light);">
+          Actualisation dans <span id="refreshCountdown">30s</span>
+        </span>
+        <button class="refresh-btn" id="refreshBtn">
+          <i class="bi bi-arrow-clockwise"></i>
+          <span>Actualiser</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="admin-content">
+
+      <!-- ===== STATS GRID ===== -->
+      <div class="stats-grid">
+
+        <div class="stat-card card-users">
+          <div class="stat-card-header">
+            <div class="stat-icon icon-users">
+              <i class="bi bi-people-fill"></i>
+            </div>
+            <span class="stat-trend up" id="usersTrend">—</span>
+          </div>
+          <div class="stat-value" id="statUsers">—</div>
+          <div class="stat-label">Total Utilisateurs</div>
+        </div>
+
+        <div class="stat-card card-subs">
+          <div class="stat-card-header">
+            <div class="stat-icon icon-subs">
+              <i class="bi bi-credit-card-fill"></i>
+            </div>
+            <span class="stat-trend up">Actives</span>
+          </div>
+          <div class="stat-value" id="statSubs">—</div>
+          <div class="stat-label">Souscriptions Actives</div>
+        </div>
+
+        <div class="stat-card card-withdrawals">
+          <div class="stat-card-header">
+            <div class="stat-icon icon-withdrawals">
+              <i class="bi bi-cash-stack"></i>
+            </div>
+            <span class="stat-trend alert" id="withdrawalsBadge" style="display:none;">0</span>
+          </div>
+          <div class="stat-value" id="statWithdrawals">—</div>
+          <div class="stat-label">Retraits en Attente</div>
+        </div>
+
+        <div class="stat-card card-invested">
+          <div class="stat-card-header">
+            <div class="stat-icon icon-invested">
+              <i class="bi bi-graph-up-arrow"></i>
+            </div>
+            <span class="stat-trend up">Total</span>
+          </div>
+          <div class="stat-value" id="statInvested" style="font-size:18px;">—</div>
+          <div class="stat-label">Total Investi (FCFA)</div>
+        </div>
+
+      </div>
+
+      <!-- ===== SOUSCRIPTIONS EN ATTENTE ===== -->
+      <div class="admin-section" id="pendingSubsSection">
+        <div class="section-header">
+          <div class="section-title">
+            <i class="bi bi-clock-history"></i>
+            Souscriptions en Attente
+            <span class="section-count" id="pendingSubsCount">0</span>
+          </div>
+          <div class="section-actions">
+            <button class="refresh-btn" onclick="loadPendingSubscriptions()">
+              <i class="bi bi-arrow-clockwise"></i> Recharger
+            </button>
+          </div>
+        </div>
+        <div id="pendingSubsContainer">
+          <div class="loading-spinner">
+            <div class="spinner-ring"></div>
+            <p>Chargement...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== RETRAITS EN ATTENTE ===== -->
+      <div class="admin-section" id="pendingWithdrawalsSection">
+        <div class="section-header">
+          <div class="section-title">
+            <i class="bi bi-cash-coin"></i>
+            Retraits en Attente
+            <span class="section-count" id="pendingWithdrawalsCount">0</span>
+          </div>
+          <div class="section-actions">
+            <button class="refresh-btn" onclick="loadPendingWithdrawals()">
+              <i class="bi bi-arrow-clockwise"></i> Recharger
+            </button>
+          </div>
+        </div>
+        <div id="pendingWithdrawalsContainer">
+          <div class="loading-spinner">
+            <div class="spinner-ring"></div>
+            <p>Chargement...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SMS ORANGE MONEY RECUS (AUTO-VERIFICATION) ===== -->
+      <div class="admin-section" id="smsDepositsSection">
+        <div class="section-header">
+          <div class="section-title">
+            <i class="bi bi-chat-left-text"></i>
+            SMS Orange Money Reçus (Auto-Vérification)
+            <span class="section-count" id="smsDepositsCount">0</span>
+          </div>
+          <div class="section-actions">
+            <button class="refresh-btn" onclick="loadSmsDeposits()">
+              <i class="bi bi-arrow-clockwise"></i> Recharger
+            </button>
+          </div>
+        </div>
+        <div id="smsDepositsContainer">
+          <div class="loading-spinner">
+            <div class="spinner-ring"></div>
+            <p>Chargement...</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /admin-content -->
+  </main>
+</div>
+
+<!-- =================== SCRIPTS =================== -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/admin.js"></script>
+<script>
+  // =================== INIT ===================
+  document.addEventListener('DOMContentLoaded', async () => {
+    if (!checkAdminAuth()) return;
+
+    // Charger toutes les données
+    await loadAll();
+
+    // Bouton refresh
+    setupRefreshButton(loadAll);
+
+    // Auto-refresh 30s
+    startAutoRefresh(loadAll, 30);
+
+    updateLastRefreshTime();
+  });
+
+  async function loadAll() {
+    await Promise.all([
+      loadAdminStats(),
+      loadPendingSubscriptions(),
+      loadPendingWithdrawals(),
+      loadSmsDeposits()
+    ]);
+    updateLastRefreshTime();
+    updateNavBadges();
+  }
+
+  function updateNavBadges() {
+    // Sync nav subs badge
+    const subsCount = parseInt(document.getElementById('pendingSubsCount')?.textContent || '0');
+    const navSubs = document.getElementById('navSubsBadge');
+    if (navSubs) {
+      navSubs.textContent = subsCount;
+      navSubs.style.display = subsCount > 0 ? 'inline-flex' : 'none';
+    }
+  }
+
+  // =================== CRON MANUAL ===================
+  async function triggerDailyEarnings() {
+    confirmAction(
+      'Déclencher manuellement le <strong>crédit des revenus journaliers</strong> pour toutes les souscriptions actives ?',
+      async () => {
+        try {
+          const data = await apiCall('/admin/daily-earnings', 'POST');
+          showToast('Revenus crédités', `${data.credited || 0} crédits effectués avec succès.`, 'success');
+          await loadAll();
+        } catch (err) {
+          showToast('Erreur', 'Échec cron: ' + err.message, 'error');
+        }
+      }
+    );
+  }
+</script>
+<script src="/js/pwa.js"></script>
+</body>
+</html>

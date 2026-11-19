@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Nike Actions">
+  <title>Parrainage &amp; Réseau - Nike</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23111111' d='M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z'/></svg>">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo">
+        <svg class="nike-swoosh" viewBox="0 0 24 24" width="38" height="16" fill="currentColor">
+          <path d="M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z"/>
+        </svg>
+        <span>NIKE</span>
+      </a>
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Fermer le menu"><i class="bi bi-x-lg"></i></button>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarUserAvatar">N</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">Actionnaire Nike</div>
+        <div class="user-role">Investisseur Actif</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Menu Principal</div>
+      <a href="dashboard.html" class="sidebar-nav-item">
+        <span class="nav-icon"><i class="bi bi-speedometer2"></i></span>
+        <span>Dashboard</span>
+      </a>
+      <a href="vip-plans.html" class="sidebar-nav-item">
+        <span class="nav-icon"><i class="bi bi-stack"></i></span>
+        <span>Actions &amp; Pack</span>
+      </a>
+      <a href="withdraw.html" class="sidebar-nav-item">
+        <span class="nav-icon"><i class="bi bi-cash-stack"></i></span>
+        <span>Retraits</span>
+      </a>
+      <a href="referral.html" class="sidebar-nav-item active">
+        <span class="nav-icon"><i class="bi bi-people"></i></span>
+        <span>Parrainage</span>
+      </a>
+      <a href="#" class="sidebar-nav-item btn-install-app" style="display:none;">
+        <span class="nav-icon"><i class="bi bi-download"></i></span>
+        <span>Installer l'App</span>
+      </a>
+      <a href="#" class="sidebar-nav-item logout logout-trigger">
+        <span class="nav-icon"><i class="bi bi-box-arrow-left"></i></span>
+        <span>Déconnexion</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">© 2026 Nike Actions</div>
+  </aside>
+
+  <!-- ===== MAIN AREA ===== -->
+  <div class="main-content">
+    <header class="main-topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Ouvrir le menu"><i class="bi bi-list"></i></button>
+        <div>
+          <div class="page-title">Programme Partenaire &amp; Réseau</div>
+          <div class="page-breadcrumb">Invitez de nouveaux investisseurs avec votre code et touchez 25 % · 3 % · 2 % instantanément</div>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="topbar-balance">
+          <span class="balance-label">Solde :</span>
+          <span class="balance-value" id="topbarBalance">0 FCFA</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-body">
+      <div id="alertContainer"></div>
+
+      <!-- ===== 1. VOS CODES DE PARRAINAGE & LIEN ===== -->
+      <div class="card-ryo mb-3">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.2rem;">
+          <div>
+            <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:0.2rem;color:var(--nike-black);">
+              Vos Codes &amp; Lien Partenaire
+            </h2>
+            <p style="color:var(--nike-gray-500);font-size:0.86rem;line-height:1.5;">
+              Chaque fois qu'un investisseur s'inscrit avec votre code et achète un pack d'actions, vos commissions sont créditées immédiatement (25 % Niveau 1, 3 % Niveau 2, 2 % Niveau 3).
+            </p>
+          </div>
+          <div style="display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;">
+            <span class="vip-level-badge">Code Principal : <strong id="myRefCodeDisplay">---</strong></span>
+            <button type="button" class="btn-outline-ryo" id="copyCodeOnlyBtn" style="padding:0.42rem 0.95rem;font-size:0.78rem;">
+              <i class="bi bi-clipboard me-1"></i> Copier
+            </button>
+          </div>
+        </div>
+
+        <!-- Lien d'invitation -->
+        <div class="copy-box" style="margin-bottom:1.2rem;">
+          <input type="text" id="referralLinkInput" readonly value="Chargement...">
+          <button type="button" class="copy-btn" id="copyReferralBtn">
+            <i class="bi bi-clipboard me-1"></i> Copier le lien
+          </button>
+          <a href="#" id="whatsappShareBtn" target="_blank" rel="noopener" class="btn-ryo" style="background:var(--nike-green);border-color:var(--nike-green);color:#ffffff;padding:0.75rem 1.2rem;font-size:0.82rem;border-radius:0;text-decoration:none;">
+            <i class="bi bi-whatsapp me-1"></i> Partager
+          </a>
+        </div>
+
+        <!-- Code alternatif personnalisé -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;padding-top:1.2rem;border-top:1px solid var(--nike-gray-200);">
+          <div>
+            <div style="font-weight:700;font-size:0.9rem;color:var(--nike-black);margin-bottom:0.2rem;">
+              Code Alternatif Personnalisé
+            </div>
+            <p style="color:var(--nike-gray-500);font-size:0.82rem;margin:0;">Créez un code simple à mémoriser (ex : <strong>NIKE225</strong>, <strong>JEAN2026</strong>) pour vos filleuls.</p>
+            <div style="margin-top:0.5rem;font-size:0.82rem;color:var(--nike-gray-500);">
+              Code actif : <strong id="activeAltCodeLabel" style="color:var(--nike-black);">Aucun défini</strong>
+              <button type="button" id="copyAltCodeBtn" class="btn-outline-ryo hidden" style="padding:0.2rem 0.6rem;font-size:0.72rem;margin-left:0.5rem;">
+                <i class="bi bi-clipboard"></i> Copier
+              </button>
+            </div>
+          </div>
+
+          <form id="altCodeForm" style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+            <input type="text" id="altCodeInput" class="form-control" placeholder="Ex: NIKE225 (4 à 12 caractères)" maxlength="12" style="flex:1;min-width:180px;text-transform:uppercase;" required>
+            <button type="submit" id="saveAltCodeBtn" class="btn-nike-pill-black" style="padding:0.8rem 1.3rem;white-space:nowrap;">
+              Enregistrer
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ===== 2. RATTACHER UN PARRAIN ===== -->
+      <div class="card-ryo mb-3" id="applyReferrerSection">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:0.2rem;color:var(--nike-black);">
+              Vous avez été parrainé ?
+            </h3>
+            <p style="color:var(--nike-gray-500);font-size:0.85rem;margin:0;" id="referrerStatusDesc">
+              Entrez le code de parrainage de votre référent pour lui faire bénéficier de sa commission sur vos achats d'actions.
+            </p>
+          </div>
+          <div id="referrerLinkedBadge" class="hidden">
+            <span class="badge badge-success" style="font-size:0.82rem;padding:0.4rem 0.85rem;">
+              <i class="bi bi-check-circle me-1"></i> Parrain lié : <strong id="linkedReferrerName">-</strong>
+            </span>
+          </div>
+        </div>
+
+        <form id="applyReferrerForm" style="display:flex;gap:0.6rem;margin-top:1rem;flex-wrap:wrap;">
+          <input type="text" id="sponsorCodeInput" class="form-control" placeholder="Code ou code alternatif de votre parrain" maxlength="12" style="flex:1;min-width:220px;text-transform:uppercase;" required>
+          <button type="submit" id="applySponsorBtn" class="btn-nike-pill-black" style="padding:0.8rem 1.4rem;">
+            Valider mon parrain
+          </button>
+        </form>
+      </div>
+
+      <!-- ===== 3. STATS COMMISSIONS ===== -->
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Total Commissions</span>
+            <div class="stat-card-icon icon-gold"><i class="bi bi-cash-stack"></i></div>
+          </div>
+          <div class="stat-card-value" id="totalCommissions">0 FCFA</div>
+          <div class="stat-card-change">Disponible sur votre solde</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Niveau 1 (Directs)</span>
+            <div class="stat-card-icon icon-red"><i class="bi bi-1-circle"></i></div>
+          </div>
+          <div class="stat-card-value" id="level1Count">0</div>
+          <div class="stat-card-change">Commission : <strong>25%</strong></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Niveau 2 (Indirects)</span>
+            <div class="stat-card-icon icon-green"><i class="bi bi-2-circle"></i></div>
+          </div>
+          <div class="stat-card-value" id="level2Count">0</div>
+          <div class="stat-card-change">Commission : <strong>3%</strong></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Niveau 3 (Réseau)</span>
+            <div class="stat-card-icon icon-blue"><i class="bi bi-3-circle"></i></div>
+          </div>
+          <div class="stat-card-value" id="level3Count">0</div>
+          <div class="stat-card-change">Commission : <strong>2%</strong></div>
+        </div>
+      </div>
+
+      <!-- ===== 4. TABLEAU DES FILLEULS ===== -->
+      <div class="dashboard-section mb-3">
+        <div class="section-head">
+          <div class="section-head-title">
+            <span class="icon"><i class="bi bi-people"></i></span>
+            <span>Liste de mes Filleuls Directs (Niveau 1 — 25%)</span>
+          </div>
+        </div>
+        <div class="section-body" style="padding:0;overflow-x:auto;">
+          <table class="table-dashboard">
+            <thead>
+              <tr>
+                <th>Filleul</th>
+                <th>Contact</th>
+                <th>Date d'inscription</th>
+                <th>Actions Possédées</th>
+                <th>Commissions Générées</th>
+              </tr>
+            </thead>
+            <tbody id="referralsTableBody">
+              <tr>
+                <td colspan="5" class="text-center" style="padding:2rem;color:var(--nike-gray-500)">Chargement...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== 5. HISTORIQUE DES COMMISSIONS ===== -->
+      <div class="dashboard-section">
+        <div class="section-head">
+          <div class="section-head-title">
+            <span class="icon"><i class="bi bi-wallet2"></i></span>
+            <span>Historique des Commissions Reçues</span>
+          </div>
+        </div>
+        <div class="section-body" style="padding:0;overflow-x:auto;">
+          <table class="table-dashboard">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Investisseur</th>
+                <th>Niveau Réseau</th>
+                <th>Pack d'Action</th>
+                <th>Commission Créditée</th>
+              </tr>
+            </thead>
+            <tbody id="commissionsHistoryBody">
+              <tr>
+                <td colspan="5" class="text-center" style="padding:2rem;color:var(--nike-gray-500)">Chargement...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script>
+let currentStandardCode = '';
+let currentAltCode = '';
+
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!requireAuth()) return;
+  initDashboardLayout();
+
+  await Promise.all([
+    loadProfileAndLink(),
+    loadReferralStats(),
+    loadMyReferrals()
+  ]);
+
+  document.getElementById('copyReferralBtn')?.addEventListener('click', copyReferralLink);
+  document.getElementById('copyCodeOnlyBtn')?.addEventListener('click', () => copyTextValue(currentStandardCode, 'Code copié !'));
+  document.getElementById('copyAltCodeBtn')?.addEventListener('click', () => copyTextValue(currentAltCode, 'Code alternatif copié !'));
+  document.getElementById('altCodeForm')?.addEventListener('submit', handleSaveAltCode);
+  document.getElementById('applyReferrerForm')?.addEventListener('submit', handleApplyReferrer);
+});
+
+function updateInviteLinks() {
+  const codeToShare = currentAltCode || currentStandardCode || 'NIKE';
+  const base = window.location.href.replace(/\/[^/]*$/, '');
+  const link = `${base}/register.html?ref=${encodeURIComponent(codeToShare)}`;
+  document.getElementById('referralLinkInput').value = link;
+
+  const waBtn = document.getElementById('whatsappShareBtn');
+  if (waBtn) {
+    const msg = `Rejoins Nike Actions avec mon code ${codeToShare} et perçois 15% de dividende par jour sur 150 jours ! ${link}`;
+    waBtn.href = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+  }
+}
+
+async function loadProfileAndLink() {
+  try {
+    const res = await apiCall('/api/user/profile');
+    const user = res.user || res;
+    document.getElementById('topbarBalance').textContent = formatCFA(user.balance ?? 0);
+    currentStandardCode = user.referral_code || 'NIKE';
+    currentAltCode = user.alt_referral_code || '';
+
+    document.getElementById('myRefCodeDisplay').textContent = currentStandardCode;
+    renderAltCodeState();
+    updateInviteLinks();
+  } catch (err) {
+    const user = getUser() || {};
+    currentStandardCode = user.referral_code || 'NIKE';
+    document.getElementById('myRefCodeDisplay').textContent = currentStandardCode;
+    updateInviteLinks();
+  }
+}
+
+function renderAltCodeState() {
+  const label = document.getElementById('activeAltCodeLabel');
+  const copyBtn = document.getElementById('copyAltCodeBtn');
+  const input = document.getElementById('altCodeInput');
+  if (currentAltCode) {
+    if (label) label.textContent = currentAltCode;
+    if (copyBtn) copyBtn.classList.remove('hidden');
+    if (input) input.value = currentAltCode;
+  } else {
+    if (label) label.textContent = 'Aucun défini';
+    if (copyBtn) copyBtn.classList.add('hidden');
+  }
+}
+
+function copyTextValue(val, msg) {
+  if (!val) return;
+  navigator.clipboard?.writeText(val).catch(() => {});
+  showAlert(`${msg} (${val})`, 'success');
+}
+
+function copyReferralLink() {
+  const input = document.getElementById('referralLinkInput');
+  const btn = document.getElementById('copyReferralBtn');
+  if (!input || !btn) return;
+
+  input.select();
+  input.setSelectionRange(0, 99999);
+  navigator.clipboard?.writeText(input.value).catch(() => {
+    document.execCommand('copy');
+  });
+
+  btn.classList.add('copied');
+  btn.innerHTML = '<i class="bi bi-check2 me-1"></i> Lien copié !';
+  showAlert('Votre lien partenaire a été copié !', 'success');
+
+  setTimeout(() => {
+    btn.classList.remove('copied');
+    btn.innerHTML = '<i class="bi bi-clipboard me-1"></i> Copier le lien';
+  }, 2500);
+}
+
+async function handleSaveAltCode(e) {
+  e.preventDefault();
+  const code = document.getElementById('altCodeInput').value.trim().toUpperCase();
+  const btn = document.getElementById('saveAltCodeBtn');
+  if (!/^[A-Z0-9_-]{4,12}$/.test(code)) {
+    showAlert('Le code alternatif doit contenir de 4 à 12 lettres ou chiffres (sans espaces).', 'danger');
+    return;
+  }
+
+  const orig = btn.innerHTML;
+  btn.disabled = true;
+  btn.textContent = 'Enregistrement...';
+  try {
+    const res = await apiCall('/api/referral/alt-code', 'PUT', { alt_code: code });
+    currentAltCode = res.alt_referral_code || code;
+    renderAltCodeState();
+    updateInviteLinks();
+    showAlert(res.message || 'Code alternatif enregistré avec succès !', 'success');
+  } catch (err) {
+    showAlert(err.message || 'Impossible d\'enregistrer ce code alternatif.', 'danger');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = orig;
+  }
+}
+
+async function handleApplyReferrer(e) {
+  e.preventDefault();
+  const code = document.getElementById('sponsorCodeInput').value.trim().toUpperCase();
+  const btn = document.getElementById('applySponsorBtn');
+  if (!code) return;
+
+  const orig = btn.innerHTML;
+  btn.disabled = true;
+  btn.textContent = 'Validation...';
+  try {
+    const res = await apiCall('/api/referral/apply-code', 'POST', { code });
+    showAlert(res.message || 'Parrain rattaché avec succès !', 'success');
+    await loadReferralStats();
+  } catch (err) {
+    showAlert(err.message || 'Code de parrainage invalide.', 'danger');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = orig;
+  }
+}
+
+async function loadReferralStats() {
+  try {
+    const stats = await apiCall('/api/referral/stats');
+    const totalComm = stats.total_commissions ?? 0;
+    const l1 = stats.level1_count ?? 0;
+    const l2 = stats.level2_count ?? 0;
+    const l3 = stats.level3_count ?? 0;
+
+    if (stats.alt_referral_code) {
+      currentAltCode = stats.alt_referral_code;
+      renderAltCodeState();
+      updateInviteLinks();
+    }
+
+    document.getElementById('totalCommissions').textContent = formatCFA(totalComm);
+    document.getElementById('level1Count').textContent = `${l1} membre(s)`;
+    document.getElementById('level2Count').textContent = `${l2} membre(s)`;
+    document.getElementById('level3Count').textContent = `${l3} membre(s)`;
+
+    if (stats.referred_by) {
+      document.getElementById('applyReferrerForm')?.classList.add('hidden');
+      document.getElementById('referrerLinkedBadge')?.classList.remove('hidden');
+      document.getElementById('linkedReferrerName').textContent = stats.referrer_username || `#${stats.referred_by}`;
+      document.getElementById('referrerStatusDesc').textContent = 'Votre compte est rattaché à votre parrain. Il perçoit son pourcentage sur vos achats d\'actions.';
+    }
+
+    const histBody = document.getElementById('commissionsHistoryBody');
+    const hist = Array.isArray(stats.commissions_history) ? stats.commissions_history : [];
+    if (histBody) {
+      if (hist.length === 0) {
+        histBody.innerHTML = `
+          <tr>
+            <td colspan="5" class="text-center" style="padding:2.2rem;color:var(--nike-gray-500)">
+              Aucune commission reçue pour le moment. Dès qu'un filleul achète une action, votre gain apparaîtra ici et s'ajoutera à votre solde !
+            </td>
+          </tr>
+        `;
+      } else {
+        histBody.innerHTML = hist.map(c => `
+          <tr>
+            <td>${formatDate(c.created_at)}</td>
+            <td style="font-weight:700;color:var(--nike-black)"><i class="bi bi-shield-lock me-1" style="color:var(--nike-gray-500)"></i>${escHtml(maskAnonUser(c.referred_username, c.referred_id))}</td>
+            <td><span class="badge badge-info">Niveau ${Number(c.level)} (${Math.round((c.commission_rate || 0) * 100)}%)</span></td>
+            <td><span class="vip-level-badge">Action ${escHtml(c.vip_level || '-')}</span></td>
+            <td style="font-weight:700;color:var(--nike-green)">+${formatCFA(c.amount)}</td>
+          </tr>
+        `).join('');
+      }
+    }
+  } catch (e) {
+    // Ignore
+  }
+}
+
+async function loadMyReferrals() {
+  const tbody = document.getElementById('referralsTableBody');
+  try {
+    const res = await apiCall('/api/referral/my-referrals');
+    const referrals = Array.isArray(res) ? res : (res.referrals || []);
+
+    if (referrals.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="5" class="text-center" style="padding:2.2rem;color:var(--nike-gray-500)">
+            Vous n'avez pas encore de filleul. Partagez votre code partenaire ci-dessus pour toucher jusqu'à 25% de commission !
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    tbody.innerHTML = referrals.map(ref => {
+      const hasSub = ref.has_active_subscription || ref.subscription_count > 0;
+      const subBadge = hasSub
+        ? `<span class="badge badge-success">Action Active ${ref.active_vip_level ? '(Action ' + Number(ref.active_vip_level) + ')' : ''}</span>`
+        : `<span class="badge badge-warning">En attente d'achat</span>`;
+
+      return `
+        <tr>
+          <td style="font-weight:700;color:var(--nike-black)"><i class="bi bi-shield-lock me-1" style="color:var(--nike-gray-500)"></i>${escHtml(maskAnonUser(ref.username, ref.id))}</td>
+          <td style="font-family:monospace;color:var(--nike-gray-500);">${escHtml(maskAnonPhone(ref.phone || 'Confidentiel'))}</td>
+          <td>${formatDate(ref.created_at)}</td>
+          <td>${subBadge}</td>
+          <td style="font-weight:700;color:var(--nike-green)">+${formatCFA(ref.commission_earned || 0)}</td>
+        </tr>
+      `;
+    }).join('');
+  } catch (err) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" class="text-center text-danger" style="padding:1.5rem">
+          Impossible de charger la liste des filleuls.
+        </td>
+      </tr>
+    `;
+  }
+}
+</script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

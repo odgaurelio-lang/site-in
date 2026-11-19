@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0d0d">
+  <title>Hors Connexion - Nike</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23ffffff' d='M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z'/></svg>">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: #000000;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .offline-card {
+      max-width: 440px;
+      width: 100%;
+      background: #141414;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 2.5rem 1.8rem;
+    }
+    .swoosh-icon {
+      margin: 0 auto 1.5rem;
+      display: block;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.5px;
+    }
+    p {
+      color: #a0a0a0;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 1.8rem;
+    }
+    .btn-retry {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 0.9rem 1.5rem;
+      background: #ffffff;
+      color: #000000;
+      font-weight: 700;
+      font-size: 0.88rem;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin-bottom: 0.8rem;
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 0.85rem 1.5rem;
+      background: transparent;
+      color: #ffffff;
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-card">
+    <svg class="swoosh-icon" viewBox="0 0 24 24" width="60" height="30" fill="#ffffff">
+      <path d="M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z"/>
+    </svg>
+    <h1>Mode Hors Connexion</h1>
+    <p>
+      Votre appareil n'est pas connecté à Internet. Vérifiez votre réseau pour actualiser votre solde et vos dividendes quotidiens.
+    </p>
+    <button type="button" class="btn-retry" onclick="window.location.reload()">
+      Réessayer la connexion
+    </button>
+    <a href="/dashboard.html" class="btn-secondary">Retourner au Tableau de bord</a>
+  </div>
+  <script>
+    window.addEventListener('online', () => window.location.reload());
+  </script>
+</body>
+</html>

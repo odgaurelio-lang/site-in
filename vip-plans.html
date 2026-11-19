@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Nike Actions">
+  <title>Actions &amp; Pack - Nike</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23111111' d='M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z'/></svg>">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo">
+        <svg class="nike-swoosh" viewBox="0 0 24 24" width="38" height="16" fill="currentColor">
+          <path d="M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z"/>
+        </svg>
+        <span>NIKE</span>
+      </a>
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Fermer le menu"><i class="bi bi-x-lg"></i></button>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarUserAvatar">N</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">Actionnaire Nike</div>
+        <div class="user-role">Portefeuille d'Actions</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Menu Principal</div>
+      <a href="dashboard.html" class="sidebar-nav-item">
+        <span class="nav-icon"><i class="bi bi-speedometer2"></i></span>
+        <span>Dashboard</span>
+      </a>
+      <a href="vip-plans.html" class="sidebar-nav-item active">
+        <span class="nav-icon"><i class="bi bi-stack"></i></span>
+        <span>Actions &amp; Pack</span>
+      </a>
+      <a href="withdraw.html" class="sidebar-nav-item">
+        <span class="nav-icon"><i class="bi bi-cash-stack"></i></span>
+        <span>Retraits</span>
+      </a>
+      <a href="referral.html" class="sidebar-nav-item">
+        <span class="nav-icon"><i class="bi bi-people"></i></span>
+        <span>Parrainage</span>
+      </a>
+      <a href="#" class="sidebar-nav-item btn-install-app" style="display:none;">
+        <span class="nav-icon"><i class="bi bi-download"></i></span>
+        <span>Installer l'App</span>
+      </a>
+      <a href="#" class="sidebar-nav-item logout logout-trigger">
+        <span class="nav-icon"><i class="bi bi-box-arrow-left"></i></span>
+        <span>Déconnexion</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">© 2026 Nike Actions</div>
+  </aside>
+
+  <!-- ===== MAIN AREA ===== -->
+  <div class="main-content">
+    <header class="main-topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Ouvrir le menu"><i class="bi bi-list"></i></button>
+        <div>
+          <div class="page-title">Actions &amp; Pack</div>
+          <div class="page-breadcrumb">Sélectionnez votre palier d'actions et percevez 15 % / jour pendant 150 jours</div>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="topbar-balance">
+          <span class="balance-label">Solde :</span>
+          <span class="balance-value" id="topbarBalance">0 FCFA</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-body">
+      <div id="alertContainer"></div>
+
+      <!-- ===== NIKE PROMO BANNER ===== -->
+      <div class="mb-4" style="background:var(--nike-black);color:var(--nike-white);border-radius:var(--radius-lg);padding:2.2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+        <div style="max-width:580px;">
+          <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#a1a1a6;margin-bottom:0.45rem;">
+            Index Officiel • Rendement 15% / 24h
+          </div>
+          <h1 style="font-family:var(--font-display);font-size:clamp(1.75rem,3.2vw,2.35rem);text-transform:uppercase;line-height:1;margin-bottom:0.55rem;color:#ffffff;">
+            ACQUIÉREZ VOS ACTIONS NIKE
+          </h1>
+          <p style="color:#cccccc;font-size:0.92rem;line-height:1.55;">
+            Chaque pack d'actions génère un dividende quotidien de 15 % crédité chaque 24 heures pendant 150 jours. Retrait disponible du lundi au vendredi (07h–21h) via Orange Money.
+          </p>
+        </div>
+        <div>
+          <a href="withdraw.html" class="btn-nike-pill-white" style="padding:0.65rem 1.4rem;font-size:0.85rem;">
+            Mes Retraits
+          </a>
+        </div>
+      </div>
+
+      <!-- ===== BARÈME ACTIONS & PACK (EDITORIAL MATRIX) ===== -->
+      <div class="mb-4">
+        <div class="ap-editorial-head" style="margin-bottom:1rem;">
+          <div>
+            <div class="ap-editorial-eyebrow">Barème Détaillé</div>
+            <h2 style="font-family:var(--font-body);font-size:1.25rem;font-weight:700;color:var(--nike-black);">Tableau Actions &amp; Pack</h2>
+          </div>
+        </div>
+
+        <div class="vip-table-container">
+          <table class="table-vip" id="memberVipTable">
+            <thead>
+              <tr>
+                <th>Action &amp; Pack</th>
+                <th>Prix d'achat</th>
+                <th>Dividende / Jour</th>
+                <th>Rendement Total (150j)</th>
+                <th class="col-center">Durée</th>
+                <th class="col-center">Rentabilité</th>
+                <th class="col-right">Opération</th>
+              </tr>
+            </thead>
+            <tbody id="memberVipTableBody">
+              <!-- Rempli dynamiquement par vip.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== CATALOGUE VISUEL DES 10 ACTIONS ===== -->
+      <div style="margin-bottom:1rem;">
+        <div class="ap-editorial-eyebrow">Catalogue Éditions</div>
+        <h2 style="font-family:var(--font-body);font-size:1.25rem;font-weight:700;color:var(--nike-black);margin-bottom:1rem;">Sélection par Pack</h2>
+      </div>
+      <div class="vip-grid mb-4" id="vipCardsGrid">
+        <!-- Rempli dynamiquement par vip.js -->
+      </div>
+
+      <!-- ===== HISTORIQUE DE MES ACHATS D'ACTIONS ===== -->
+      <div class="dashboard-section mt-3">
+        <div class="section-head">
+          <div class="section-head-title">
+            <span class="icon"><i class="bi bi-journal-check"></i></span>
+            <span>Historique de mes actions détenues</span>
+          </div>
+        </div>
+        <div class="section-body" style="padding:0;overflow-x:auto;">
+          <table class="table-dashboard">
+            <thead>
+              <tr>
+                <th>Action &amp; Pack</th>
+                <th>Prix d'Achat</th>
+                <th>Dividende / Jour</th>
+                <th>Réf. Transaction</th>
+                <th>Statut</th>
+                <th>Date d'Achat</th>
+              </tr>
+            </thead>
+            <tbody id="mySubscriptionsBody">
+              <tr>
+                <td colspan="6" class="text-center" style="padding:1.8rem;color:var(--nike-gray-500)">Chargement de vos actions...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ===== MODAL D'ACHAT D'ACTION ===== -->
+<div class="modal-overlay hidden" id="subscribeModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modalVipTitle">Acheter une Action</h3>
+      <button class="modal-close" id="closeSubscribeModal" aria-label="Fermer"><i class="bi bi-x-lg"></i></button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1.2rem;background:var(--nike-offwhite);border:1px solid var(--nike-gray-200);padding:1rem;border-radius:var(--radius);">
+      <div>
+        <div style="font-size:0.72rem;color:var(--nike-gray-500);font-weight:600;text-transform:uppercase;">Dividende quotidien</div>
+        <div id="modalDaily" style="font-size:1.15rem;font-weight:800;color:var(--nike-black)">0 FCFA</div>
+      </div>
+      <div>
+        <div style="font-size:0.72rem;color:var(--nike-gray-500);font-weight:600;text-transform:uppercase;">Rendement total (150j)</div>
+        <div id="modalTotal" style="font-size:1.15rem;font-weight:800;color:var(--nike-green)">0 FCFA</div>
+      </div>
+    </div>
+
+    <div class="mb-2">
+      <div style="font-size:0.78rem;color:var(--nike-black);margin-bottom:0.45rem;font-weight:700;">Moyen de paiement officiel :</div>
+      <div class="operator-tabs">
+        <button type="button" class="operator-tab active-orange" id="tabOrangeMoney" onclick="selectPaymentOperator('orange_money')">
+          <i class="bi bi-wallet2" style="color:#ff7900;"></i>
+          <span>Orange Money</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="info-box mb-3" id="modalInstructionsBox" style="background:var(--nike-offwhite);border:1px solid var(--nike-gray-200);color:var(--nike-black);padding:0.85rem 1rem;border-radius:var(--radius);font-size:0.86rem;">
+      <div class="d-flex align-center gap-1">
+        <i class="bi bi-info-circle"></i>
+        <span>Effectuez votre paiement de <strong id="modalAmount">0 FCFA</strong> via Orange Money, puis saisissez le <strong>Trans ID</strong> reçu par SMS pour vérification automatique :</span>
+      </div>
+    </div>
+
+    <div id="smsWaitNotice" class="hidden" style="background:#fff8e1;border:1px solid #ffb300;color:#664d03;padding:0.8rem 1rem;border-radius:var(--radius);font-size:0.82rem;margin-bottom:1rem;">
+      <i class="bi bi-hourglass-split me-1"></i>
+      <span id="smsWaitText">En attente de confirmation automatique par SMS Orange Money...</span>
+    </div>
+
+    <form id="confirmPaymentForm">
+      <input type="hidden" id="selectedOperator" value="orange_money">
+      <div class="form-group">
+        <label class="form-label" for="paymentRef" id="paymentRefLabel">Trans ID (ID de transaction Orange Money) *</label>
+        <input type="text" id="paymentRef" class="form-control" placeholder="Ex: PP261118.1315.A12345" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="payerPhone">Votre numéro Orange Money utilisé (optionnel)</label>
+        <input type="tel" id="payerPhone" class="form-control" placeholder="Ex: +226 00 00 00 00">
+      </div>
+
+      <button type="submit" id="confirmPaymentBtn" class="btn-nike-pill-black w-100" style="justify-content:center;padding:0.85rem;">
+        Vérifier &amp; activer mon Action
+      </button>
+    </form>
+  </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/vip.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

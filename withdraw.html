@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Nike Actions">
+  <title>Retraits - Nike</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23111111' d='M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z'/></svg>">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo">
+        <svg class="nike-swoosh" viewBox="0 0 24 24" width="38" height="16" fill="currentColor">
+          <path d="M24 7.635c-.156.408-.54 1.144-1.152 2.208-1.56 2.712-4.14 5.388-7.74 8.028-3.6 2.64-7.584 4.356-11.952 5.148-1.008.18-1.884.096-2.628-.252-.744-.348-1.224-.9-1.44-1.656-.216-.756-.096-1.596.36-2.52.456-.924 1.212-1.896 2.268-2.916 2.376-2.292 5.544-4.272 9.504-5.94 3.96-1.668 7.98-2.676 12.06-3.024.288.24.528.552.72.936z"/>
+        </svg>
+        <span>NIKE</span>
+      </a>
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Fermer le menu"><i class="bi bi-x-lg"></i></button>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarUserAvatar">N</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">Actionnaire Nike</div>
+        <div class="user-role">Investisseur Actif</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Menu Principal</div>
+      <a href="dashboard.html" class="sidebar-nav-item">
+        <span class="nav-icon"><i class="bi bi-speedometer2"></i></span>
+        <span>Dashboard</span>
+      </a>
+      <a href="vip-plans.html" class="sidebar-nav-item">
+        <span class="nav-icon"><i class="bi bi-stack"></i></span>
+        <span>Actions &amp; Pack</span>
+      </a>
+      <a href="withdraw.html" class="sidebar-nav-item active">
+        <span class="nav-icon"><i class="bi bi-cash-stack"></i></span>
+        <span>Retraits</span>
+      </a>
+      <a href="referral.html" class="sidebar-nav-item">
+        <span class="nav-icon"><i class="bi bi-people"></i></span>
+        <span>Parrainage</span>
+      </a>
+      <a href="#" class="sidebar-nav-item btn-install-app" style="display:none;">
+        <span class="nav-icon"><i class="bi bi-download"></i></span>
+        <span>Installer l'App</span>
+      </a>
+      <a href="#" class="sidebar-nav-item logout logout-trigger">
+        <span class="nav-icon"><i class="bi bi-box-arrow-left"></i></span>
+        <span>Déconnexion</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">© 2026 Nike Actions</div>
+  </aside>
+
+  <!-- ===== MAIN AREA ===== -->
+  <div class="main-content">
+    <header class="main-topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Ouvrir le menu"><i class="bi bi-list"></i></button>
+        <div>
+          <div class="page-title">Retrait de fonds</div>
+          <div class="page-breadcrumb">Transférez vos dividendes vers votre compte Orange Money</div>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="topbar-balance">
+          <span class="balance-label">Solde :</span>
+          <span class="balance-value" id="topbarBalance">0 FCFA</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-body">
+      <div id="alertContainer"></div>
+
+      <div class="withdraw-container">
+        <!-- FORMULAIRE DE RETRAIT -->
+        <div class="dashboard-section">
+          <div class="section-head">
+            <div class="section-head-title">
+              <span class="icon"><i class="bi bi-cash-stack"></i></span>
+              <span>Demander un retrait</span>
+            </div>
+            <span class="badge badge-info">Lun – Ven · 07h – 21h</span>
+          </div>
+
+          <div class="section-body">
+            <div class="card-ryo mb-3" style="background:var(--nike-offwhite);border:1px solid var(--nike-gray-200);padding:1.35rem;">
+              <div style="font-size:0.72rem;color:var(--nike-gray-500);text-transform:uppercase;letter-spacing:0.06em;font-weight:700;">Solde disponible</div>
+              <div id="availableBalanceDisplay" style="font-size:1.95rem;font-weight:800;color:var(--nike-black);margin-top:0.15rem;font-variant-numeric:tabular-nums;">0 FCFA</div>
+              <div style="font-size:0.8rem;color:var(--nike-gray-500);margin-top:0.25rem;">Montant minimum : <strong style="color:var(--nike-black)">3 500 FCFA</strong> &middot; Commission : <strong style="color:var(--nike-black)">10%</strong></div>
+            </div>
+
+            <!-- CONDITIONS DE RETRAIT -->
+            <div class="card-ryo mb-3" id="unlockConditionCard" style="padding:1rem 1.15rem;background:var(--nike-offwhite);border:1px solid var(--nike-gray-200);">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.4rem;">
+                <div style="font-weight:700;font-size:0.88rem;color:var(--nike-black);"><i class="bi bi-shield-check me-1"></i> Conditions de retrait</div>
+                <span class="badge badge-warning" id="unlockStatusBadge">Vérification...</span>
+              </div>
+              <div style="font-size:0.8rem;color:var(--nike-gray-600);margin-bottom:0.55rem;" id="unlockStatusText">
+                Revenus journaliers requis : vos gains quotidiens cumulés doivent atteindre votre capital initial.
+              </div>
+              <div class="progress-bar-ryo" style="margin-bottom:0.4rem;">
+                <div class="progress-fill" id="unlockProgressBar" style="width:0%"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.4rem;font-size:0.76rem;color:var(--nike-gray-500);">
+                <span>Revenus journaliers : <strong id="unlockProgressValue" style="color:var(--nike-black);">0 FCFA / 0 FCFA</strong></span>
+                <span id="scheduleStatusText">Horaires : Lun – Ven, 07h00 – 21h00</span>
+              </div>
+            </div>
+
+            <form id="withdrawForm" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="withdrawAmount">Montant à retirer (FCFA) *</label>
+                <div class="form-control-icon">
+                  <span class="icon"><i class="bi bi-wallet2"></i></span>
+                  <input type="number" id="withdrawAmount" class="form-control" min="3500" step="100" placeholder="Minimum 3 500 FCFA" required>
+                </div>
+                <div id="withdrawFeePreview" style="margin-top:0.55rem;padding:0.7rem 0.9rem;background:var(--nike-offwhite);border:1px solid var(--nike-gray-200);border-radius:8px;font-size:0.8rem;color:var(--nike-gray-500);display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem">
+                  <span>Frais de retrait (10%) : <strong id="previewFeeAmount" class="text-danger">0 FCFA</strong></span>
+                  <span>Net reçu : <strong id="previewNetAmount" style="color:var(--nike-green)">0 FCFA</strong></span>
+                </div>
+              </div>
+
+              <!-- Opérateur officiel (Orange Money) -->
+              <div class="form-group">
+                <label class="form-label">Opérateur de réception *</label>
+                <div class="operator-tabs">
+                  <button type="button" class="operator-tab active-orange" id="withdrawTabOrange" onclick="selectWithdrawOperator('orange_money')">
+                    <i class="bi bi-wallet2" style="color:#ff7900;"></i>
+                    <span>Orange Money</span>
+                  </button>
+                </div>
+                <input type="hidden" id="withdrawOperator" value="orange_money">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="withdrawPhone" id="withdrawPhoneLabel">Numéro Orange Money destinataire *</label>
+                <div class="phone-input-group">
+                  <select id="withdrawPhoneCode" class="phone-code-select" aria-label="Indicatif pays">
+                    <option value="+226" selected>BF (+226)</option>
+                    <option value="+225">CI (+225)</option>
+                    <option value="+212">MA (+212)</option>
+                    <option value="+221">SN (+221)</option>
+                    <option value="+223">ML (+223)</option>
+                    <option value="+224">GN (+224)</option>
+                    <option value="+237">CM (+237)</option>
+                    <option value="+243">CD (+243)</option>
+                    <option value="+229">BJ (+229)</option>
+                    <option value="+228">TG (+228)</option>
+                    <option value="+227">NE (+227)</option>
+                    <option value="+241">GA (+241)</option>
+                    <option value="+242">CG (+242)</option>
+                    <option value="+235">TD (+235)</option>
+                    <option value="+236">CF (+236)</option>
+                    <option value="+261">MG (+261)</option>
+                    <option value="+216">TN (+216)</option>
+                    <option value="+213">DZ (+213)</option>
+                    <option value="+33">FR (+33)</option>
+                    <option value="+32">BE (+32)</option>
+                    <option value="+1">CA/US (+1)</option>
+                    <option value="other">Autre (+)</option>
+                  </select>
+                  <input type="text" id="withdrawCustomCode" class="form-control phone-code-custom hidden" placeholder="+Indicatif" maxlength="6">
+                  <div class="form-control-icon">
+                    <span class="icon"><i class="bi bi-telephone"></i></span>
+                    <input type="tel" id="withdrawPhone" class="form-control" placeholder="00 00 00 00" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="info-box mb-3" style="background:var(--nike-offwhite);border:1px solid var(--nike-gray-200);color:var(--nike-gray-600);padding:0.85rem;border-radius:var(--radius);font-size:0.82rem;">
+                <div class="d-flex align-center gap-1">
+                  <i class="bi bi-clock-history"></i>
+                  <span><strong>Horaires &amp; Conditions :</strong> Retraits ouverts du lundi au vendredi, de 07h00 à 21h00 (commission : 10%, minimum : 3 500 FCFA), lorsque vos revenus journaliers atteignent votre capital initial.</span>
+                </div>
+              </div>
+
+              <button type="submit" id="withdrawSubmitBtn" class="btn-nike-pill-black w-100" style="justify-content:center;padding:0.9rem;">
+                Confirmer ma demande de retrait
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- HISTORIQUE DES RETRAITS -->
+        <div class="dashboard-section">
+          <div class="section-head">
+            <div class="section-head-title">
+              <span class="icon"><i class="bi bi-clock-history"></i></span>
+              <span>Historique de mes retraits</span>
+            </div>
+          </div>
+
+          <div class="section-body" style="padding:0;overflow-x:auto;">
+            <table class="table-dashboard">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Montant</th>
+                  <th>Opérateur &amp; Numéro</th>
+                  <th>Statut</th>
+                </tr>
+              </thead>
+              <tbody id="withdrawHistoryBody">
+                <tr>
+                  <td colspan="4" class="text-center" style="padding:2rem;color:var(--nike-gray-500)">Chargement...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script>
+let currentBalance = 0;
+let currentWithdrawOp = 'orange_money';
+let currentEligibility = null;
+
+function selectWithdrawOperator(op) {
+  currentWithdrawOp = 'orange_money';
+  const tabO = document.getElementById('withdrawTabOrange');
+  const hiddenOp = document.getElementById('withdrawOperator');
+  const phoneLabel = document.getElementById('withdrawPhoneLabel');
+
+  if (hiddenOp) hiddenOp.value = currentWithdrawOp;
+  if (tabO) tabO.className = 'operator-tab active-orange';
+  if (phoneLabel) phoneLabel.textContent = 'Numéro Orange Money destinataire *';
+}
+
+function updateFeePreview() {
+  const input = document.getElementById('withdrawAmount');
+  const previewFee = document.getElementById('previewFeeAmount');
+  const previewNet = document.getElementById('previewNetAmount');
+  const raw = Number(input?.value || 0);
+
+  if (raw >= 3500) {
+    const fee = Math.round(raw * 0.10);
+    const net = Math.max(0, raw - fee);
+    if (previewFee) previewFee.textContent = formatCFA(fee);
+    if (previewNet) previewNet.textContent = formatCFA(net);
+  } else {
+    if (previewFee) previewFee.textContent = '0 FCFA';
+    if (previewNet) previewNet.textContent = '0 FCFA';
+  }
+}
+
+function renderEligibilityUI(elig) {
+  currentEligibility = elig || null;
+  const card = document.getElementById('unlockConditionCard');
+  const badge = document.getElementById('unlockStatusBadge');
+  const textEl = document.getElementById('unlockStatusText');
+  const bar = document.getElementById('unlockProgressBar');
+  const progVal = document.getElementById('unlockProgressValue');
+  const schedEl = document.getElementById('scheduleStatusText');
+  const btn = document.getElementById('withdrawSubmitBtn');
+
+  if (!elig) return;
+
+  const invested = Number(elig.total_invested || 0);
+  const dailyTotal = Number(elig.total_daily_earnings || 0);
+  const pct = Number(elig.progress_percent || 0);
+  const remaining = Number(elig.remaining_to_unlock || 0);
+  const earningsOk = Boolean(elig.earnings_unlocked);
+  const schedOk = Boolean(elig.schedule_open);
+  const canWithdraw = Boolean(elig.can_withdraw);
+
+  if (bar) bar.style.width = `${pct}%`;
+  if (progVal) progVal.textContent = `${formatCFA(dailyTotal)} / ${formatCFA(invested)} (${pct}%)`;
+  if (schedEl) {
+    schedEl.innerHTML = schedOk
+      ? '<span style="color:var(--nike-green);font-weight:700;">Guichet ouvert (Lun – Ven, 07h–21h)</span>'
+      : '<span style="color:var(--nike-accent);font-weight:700;">Guichet fermé (Lun – Ven, 07h–21h)</span>';
+  }
+
+  if (canWithdraw) {
+    if (card) {
+      card.style.background = 'var(--nike-green-soft)';
+      card.style.borderColor = 'rgba(0,125,72,0.25)';
+    }
+    if (badge) {
+      badge.className = 'badge badge-success';
+      badge.textContent = 'Retraits Ouverts';
+    }
+    if (textEl) {
+      textEl.innerHTML = 'Vos revenus journaliers ont atteint votre capital initial. Vous pouvez retirer dès <strong>3 500 FCFA</strong> (frais : <strong>10%</strong>).';
+    }
+    if (btn) btn.disabled = false;
+  } else {
+    if (card) {
+      card.style.background = 'var(--nike-offwhite)';
+      card.style.borderColor = 'var(--nike-gray-200)';
+    }
+    if (badge) {
+      badge.className = 'badge badge-warning';
+      badge.textContent = !earningsOk ? 'Seuil non atteint' : 'Hors horaires';
+    }
+    if (textEl) {
+      if (!elig.has_investment) {
+        textEl.innerHTML = 'Vous devez d\'abord acheter au moins une Action et cumuler des revenus journaliers égaux à votre capital initial.';
+      } else if (!earningsOk) {
+        textEl.innerHTML = `Encore <strong>${formatCFA(remaining)}</strong> de revenus journaliers nécessaires pour atteindre votre capital initial (${formatCFA(invested)}).`;
+      } else {
+        textEl.innerHTML = 'Capital initial atteint, mais les retraits sont uniquement autorisés du <strong>lundi au vendredi, de 07h00 à 21h00</strong>.';
+      }
+    }
+    if (btn) btn.disabled = true;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!requireAuth()) return;
+  initDashboardLayout();
+
+  const codeSelect = document.getElementById('withdrawPhoneCode');
+  const customInput = document.getElementById('withdrawCustomCode');
+  if (codeSelect && customInput) {
+    codeSelect.addEventListener('change', () => {
+      if (codeSelect.value === 'other') {
+        customInput.classList.remove('hidden');
+        customInput.focus();
+      } else {
+        customInput.classList.add('hidden');
+        customInput.value = '';
+      }
+    });
+  }
+
+  const amtInput = document.getElementById('withdrawAmount');
+  if (amtInput) amtInput.addEventListener('input', updateFeePreview);
+
+  const withdrawForm = document.getElementById('withdrawForm');
+  if (withdrawForm) withdrawForm.addEventListener('submit', handleWithdrawRequest);
+
+  await Promise.all([loadBalance(), loadWithdrawHistory()]);
+});
+
+async function loadBalance() {
+  try {
+    const [balRes, eligRes] = await Promise.all([
+      apiCall('/api/user/balance'),
+      apiCall('/api/withdraw/eligibility').catch(() => null)
+    ]);
+    currentBalance = Number(balRes.balance ?? 0);
+    document.getElementById('topbarBalance').textContent = formatCFA(currentBalance);
+    document.getElementById('availableBalanceDisplay').textContent = formatCFA(currentBalance);
+    renderEligibilityUI(eligRes || balRes.eligibility || balRes);
+  } catch (err) {
+    try {
+      const dash = await apiCall('/api/user/dashboard');
+      currentBalance = Number(dash.balance ?? 0);
+      document.getElementById('topbarBalance').textContent = formatCFA(currentBalance);
+      document.getElementById('availableBalanceDisplay').textContent = formatCFA(currentBalance);
+    } catch (e) {}
+  }
+}
+
+async function handleWithdrawRequest(e) {
+  e.preventDefault();
+  const amount = Number(document.getElementById('withdrawAmount').value);
+  const rawPhone = document.getElementById('withdrawPhone').value.trim();
+  const operator = document.getElementById('withdrawOperator')?.value || currentWithdrawOp;
+  const codeSel = document.getElementById('withdrawPhoneCode')?.value || '+226';
+  const customCode = document.getElementById('withdrawCustomCode')?.value.trim() || '';
+  const btn = document.getElementById('withdrawSubmitBtn');
+
+  let dialCode = codeSel === 'other' ? customCode : codeSel;
+  if (dialCode && !dialCode.startsWith('+')) dialCode = '+' + dialCode;
+  if (!/^\+\d{1,4}$/.test(dialCode)) {
+    showAlert('Veuillez choisir ou saisir un indicatif pays valide (ex: +226).', 'danger');
+    return;
+  }
+
+  const cleanLocal = rawPhone.replace(/\s+/g, '');
+  const phone = cleanLocal.startsWith('+') ? cleanLocal : `${dialCode}${cleanLocal}`;
+
+  if (!amount || amount < 3500) {
+    showAlert('Le montant minimum de retrait est de 3 500 FCFA.', 'danger');
+    return;
+  }
+
+  if (currentEligibility && !currentEligibility.schedule_open) {
+    showAlert('Les retraits sont uniquement autorisés du lundi au vendredi, de 07h00 à 21h00.', 'danger');
+    return;
+  }
+
+  if (currentEligibility && !currentEligibility.earnings_unlocked) {
+    showAlert('Vos revenus journaliers cumulés doivent atteindre votre capital initial avant de pouvoir retirer.', 'danger');
+    return;
+  }
+
+  if (amount > currentBalance) {
+    showAlert('Solde insuffisant pour effectuer ce retrait.', 'danger');
+    return;
+  }
+
+  if (!cleanLocal || !/^\d{6,15}$/.test(cleanLocal.replace(/^\+\d{1,4}/, ''))) {
+    showAlert('Veuillez renseigner un numéro Orange Money valide après l\'indicatif.', 'danger');
+    return;
+  }
+
+  const orig = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Traitement...';
+
+  try {
+    await apiCall('/api/withdraw/request', 'POST', {
+      amount,
+      phone_number: phone,
+      phone,
+      payment_method: operator
+    });
+
+    showAlert('Demande de retrait enregistrée !', 'success');
+    document.getElementById('withdrawForm').reset();
+    updateFeePreview();
+    await Promise.all([loadBalance(), loadWithdrawHistory()]);
+  } catch (err) {
+    showAlert(err.message || 'Erreur lors de la demande de retrait.', 'danger');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = orig;
+  }
+}
+
+async function loadWithdrawHistory() {
+  const tbody = document.getElementById('withdrawHistoryBody');
+  try {
+    const res = await apiCall('/api/withdraw/history');
+    const list = Array.isArray(res) ? res : (res.withdrawals || []);
+
+    if (list.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="4" class="text-center" style="padding:2.2rem;color:var(--nike-gray-500)">
+            Aucun retrait effectué pour le moment.
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    const statusBadge = {
+      pending: '<span class="badge badge-warning">En attente (24H)</span>',
+      approved: '<span class="badge badge-success">Approuvé</span>',
+      rejected: '<span class="badge badge-danger">Rejeté</span>'
+    };
+
+    tbody.innerHTML = list.map(w => {
+      const opBadge = w.payment_method === 'moov_money'
+        ? '<span class="badge badge-moov" style="margin-right:0.35rem;">Moov</span>'
+        : '<span class="badge badge-orange" style="margin-right:0.35rem;">Orange</span>';
+
+      const fee = w.fee_amount || Math.round(Number(w.amount || 0) * 0.10);
+      const net = w.net_amount || (Number(w.amount || 0) - fee);
+      const maskedNum = escHtml(maskAnonPhone(w.phone_number || w.phone || '-'));
+
+      return `
+        <tr>
+          <td>${formatDate(w.created_at)}</td>
+          <td>
+            <div style="font-weight:700;color:var(--nike-black)">${formatCFA(w.amount)}</div>
+            <div style="font-size:0.75rem;color:var(--nike-green)">Net : ${formatCFA(net)} <span style="color:var(--nike-gray-500)">(Frais 10% : ${formatCFA(fee)})</span></div>
+          </td>
+          <td>${opBadge}<span style="font-family:monospace;">${maskedNum}</span></td>
+          <td>${statusBadge[w.status] || `<span class="badge badge-info">${escHtml(w.status)}</span>`}</td>
+        </tr>
+      `;
+    }).join('');
+  } catch (err) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="4" class="text-center text-danger" style="padding:1.5rem">
+          Impossible de charger l'historique des retraits.
+        </td>
+      </tr>
+    `;
+  }
+}
+</script>
+<script src="js/pwa.js"></script>
+</body>
+</html>
